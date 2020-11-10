@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.OrgPersonnelMapper">
+  <resultMap id="BaseResultMap" type="com.shanxi.coal.domain.OrgPersonnel">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="contactsname" jdbcType="VARCHAR" property="contactsname" />
+    <result column="contactsphone" jdbcType="VARCHAR" property="contactsphone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="islegal" jdbcType="CHAR" property="islegal" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, contactsname, contactsphone, email, islegal, org_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from org_personnel
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from org_personnel
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shanxi.coal.domain.OrgPersonnel">
+    insert into org_personnel (id, contactsname, contactsphone, 
+      email, islegal, org_id)
+    values (#{id,jdbcType=VARCHAR}, #{contactsname,jdbcType=VARCHAR}, #{contactsphone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{islegal,jdbcType=CHAR}, #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanxi.coal.domain.OrgPersonnel">
+    insert into org_personnel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="contactsname != null">
+        contactsname,
+      </if>
+      <if test="contactsphone != null">
+        contactsphone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="islegal != null">
+        islegal,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsname != null">
+        #{contactsname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsphone != null">
+        #{contactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="islegal != null">
+        #{islegal,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanxi.coal.domain.OrgPersonnel">
+    update org_personnel
+    <set>
+      <if test="contactsname != null">
+        contactsname = #{contactsname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsphone != null">
+        contactsphone = #{contactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="islegal != null">
+        islegal = #{islegal,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanxi.coal.domain.OrgPersonnel">
+    update org_personnel
+    set contactsname = #{contactsname,jdbcType=VARCHAR},
+      contactsphone = #{contactsphone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      islegal = #{islegal,jdbcType=CHAR},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

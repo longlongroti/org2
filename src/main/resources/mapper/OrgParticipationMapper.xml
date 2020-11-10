@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.OrgParticipationMapper">
+  <resultMap id="BaseResultMap" type="com.shanxi.coal.domain.OrgParticipation">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="enterprisename" jdbcType="VARCHAR" property="enterprisename" />
+    <result column="enterprisetype" jdbcType="CHAR" property="enterprisetype" />
+    <result column="region" jdbcType="CHAR" property="region" />
+    <result column="shareholding" jdbcType="REAL" property="shareholding" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, enterprisename, enterprisetype, region, shareholding, org_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from org_participation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from org_participation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shanxi.coal.domain.OrgParticipation">
+    insert into org_participation (id, enterprisename, enterprisetype, 
+      region, shareholding, org_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{enterprisename,jdbcType=VARCHAR}, #{enterprisetype,jdbcType=CHAR}, 
+      #{region,jdbcType=CHAR}, #{shareholding,jdbcType=REAL}, #{orgId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanxi.coal.domain.OrgParticipation">
+    insert into org_participation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enterprisename != null">
+        enterprisename,
+      </if>
+      <if test="enterprisetype != null">
+        enterprisetype,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="shareholding != null">
+        shareholding,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisename != null">
+        #{enterprisename,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisetype != null">
+        #{enterprisetype,jdbcType=CHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=CHAR},
+      </if>
+      <if test="shareholding != null">
+        #{shareholding,jdbcType=REAL},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanxi.coal.domain.OrgParticipation">
+    update org_participation
+    <set>
+      <if test="enterprisename != null">
+        enterprisename = #{enterprisename,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisetype != null">
+        enterprisetype = #{enterprisetype,jdbcType=CHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=CHAR},
+      </if>
+      <if test="shareholding != null">
+        shareholding = #{shareholding,jdbcType=REAL},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanxi.coal.domain.OrgParticipation">
+    update org_participation
+    set enterprisename = #{enterprisename,jdbcType=VARCHAR},
+      enterprisetype = #{enterprisetype,jdbcType=CHAR},
+      region = #{region,jdbcType=CHAR},
+      shareholding = #{shareholding,jdbcType=REAL},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

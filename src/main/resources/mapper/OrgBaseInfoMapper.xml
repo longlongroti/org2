@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.OrgBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.shanxi.coal.domain.OrgBaseInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="unittype" jdbcType="VARCHAR" property="unittype" />
+    <result column="newtype" jdbcType="VARCHAR" property="newtype" />
+    <result column="creditcode" jdbcType="VARCHAR" property="creditcode" />
+    <result column="unitname" jdbcType="VARCHAR" property="unitname" />
+    <result column="unitcode" jdbcType="VARCHAR" property="unitcode" />
+    <result column="unitabbreviation" jdbcType="VARCHAR" property="unitabbreviation" />
+    <result column="englishname" jdbcType="VARCHAR" property="englishname" />
+    <result column="englishabbreviation" jdbcType="VARCHAR" property="englishabbreviation" />
+    <result column="organizationalbig" jdbcType="VARCHAR" property="organizationalbig" />
+    <result column="organizationalmid" jdbcType="VARCHAR" property="organizationalmid" />
+    <result column="organizationalbigsmal" jdbcType="VARCHAR" property="organizationalbigsmal" />
+    <result column="numberpeople" jdbcType="INTEGER" property="numberpeople" />
+    <result column="establishmentdate" jdbcType="DATE" property="establishmentdate" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="capital" jdbcType="DECIMAL" property="capital" />
+    <result column="listed" jdbcType="VARCHAR" property="listed" />
+    <result column="shelltype" jdbcType="VARCHAR" property="shelltype" />
+    <result column="enterprisetype" jdbcType="VARCHAR" property="enterprisetype" />
+    <result column="legal" jdbcType="VARCHAR" property="legal" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="continent" jdbcType="VARCHAR" property="continent" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="county" jdbcType="VARCHAR" property="county" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="superiorholdingunit" jdbcType="VARCHAR" property="superiorholdingunit" />
+    <result column="legallevel" jdbcType="INTEGER" property="legallevel" />
+    <result column="holdingratio" jdbcType="INTEGER" property="holdingratio" />
+    <result column="superiormanagementunit" jdbcType="VARCHAR" property="superiormanagementunit" />
+    <result column="managelevel" jdbcType="INTEGER" property="managelevel" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="businessscope" jdbcType="VARCHAR" property="businessscope" />
+    <result column="businessscale" jdbcType="VARCHAR" property="businessscale" />
+    <result column="businessstatus" jdbcType="VARCHAR" property="businessstatus" />
+    <result column="isplatform" jdbcType="VARCHAR" property="isplatform" />
+    <result column="finalaccounts" jdbcType="VARCHAR" property="finalaccounts" />
+    <result column="operationstartdate" jdbcType="DATE" property="operationstartdate" />
+    <result column="operationenddate" jdbcType="DATE" property="operationenddate" />
+    <result column="creationdate" jdbcType="DATE" property="creationdate" />
+    <result column="updatedate" jdbcType="DATE" property="updatedate" />
+    <result column="cancellationtype" jdbcType="VARCHAR" property="cancellationtype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, domain, unittype, newtype, creditcode, unitname, unitcode, unitabbreviation, 
+    englishname, englishabbreviation, organizationalbig, organizationalmid, organizationalbigsmal, 
+    numberpeople, establishmentdate, currency, capital, listed, shelltype, enterprisetype, 
+    legal, website, phone, continent, country, province, city, county, address, superiorholdingunit, 
+    legallevel, holdingratio, superiormanagementunit, managelevel, industry, businessscope, 
+    businessscale, businessstatus, isplatform, finalaccounts, operationstartdate, operationenddate, 
+    creationdate, updatedate, cancellationtype
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from org_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from org_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shanxi.coal.domain.OrgBaseInfo">
+    insert into org_base_info (id, domain, unittype, 
+      newtype, creditcode, unitname, 
+      unitcode, unitabbreviation, englishname, 
+      englishabbreviation, organizationalbig, 
+      organizationalmid, organizationalbigsmal, 
+      numberpeople, establishmentdate, currency, 
+      capital, listed, shelltype, 
+      enterprisetype, legal, website, 
+      phone, continent, country, 
+      province, city, county, 
+      address, superiorholdingunit, legallevel, 
+      holdingratio, superiormanagementunit, managelevel, 
+      industry, businessscope, businessscale, 
+      businessstatus, isplatform, finalaccounts, 
+      operationstartdate, operationenddate, creationdate, 
+      updatedate, cancellationtype)
+    values (#{id,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{unittype,jdbcType=VARCHAR}, 
+      #{newtype,jdbcType=VARCHAR}, #{creditcode,jdbcType=VARCHAR}, #{unitname,jdbcType=VARCHAR}, 
+      #{unitcode,jdbcType=VARCHAR}, #{unitabbreviation,jdbcType=VARCHAR}, #{englishname,jdbcType=VARCHAR}, 
+      #{englishabbreviation,jdbcType=VARCHAR}, #{organizationalbig,jdbcType=VARCHAR}, 
+      #{organizationalmid,jdbcType=VARCHAR}, #{organizationalbigsmal,jdbcType=VARCHAR}, 
+      #{numberpeople,jdbcType=INTEGER}, #{establishmentdate,jdbcType=DATE}, #{currency,jdbcType=VARCHAR}, 
+      #{capital,jdbcType=DECIMAL}, #{listed,jdbcType=CHAR}, #{shelltype,jdbcType=VARCHAR}, 
+      #{enterprisetype,jdbcType=VARCHAR}, #{legal,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{continent,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{superiorholdingunit,jdbcType=VARCHAR}, #{legallevel,jdbcType=INTEGER}, 
+      #{holdingratio,jdbcType=INTEGER}, #{superiormanagementunit,jdbcType=VARCHAR}, #{managelevel,jdbcType=INTEGER}, 
+      #{industry,jdbcType=VARCHAR}, #{businessscope,jdbcType=VARCHAR}, #{businessscale,jdbcType=VARCHAR}, 
+      #{businessstatus,jdbcType=VARCHAR}, #{isplatform,jdbcType=CHAR}, #{finalaccounts,jdbcType=CHAR}, 
+      #{operationstartdate,jdbcType=DATE}, #{operationenddate,jdbcType=DATE}, #{creationdate,jdbcType=DATE}, 
+      #{updatedate,jdbcType=DATE}, #{cancellationtype,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanxi.coal.domain.OrgBaseInfo">
+    insert into org_base_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="domain != null">
+        domain,
+      </if>
+      <if test="unittype != null">
+        unittype,
+      </if>
+      <if test="newtype != null">
+        newtype,
+      </if>
+      <if test="creditcode != null">
+        creditcode,
+      </if>
+      <if test="unitname != null">
+        unitname,
+      </if>
+      <if test="unitcode != null">
+        unitcode,
+      </if>
+      <if test="unitabbreviation != null">
+        unitabbreviation,
+      </if>
+      <if test="englishname != null">
+        englishname,
+      </if>
+      <if test="englishabbreviation != null">
+        englishabbreviation,
+      </if>
+      <if test="organizationalbig != null">
+        organizationalbig,
+      </if>
+      <if test="organizationalmid != null">
+        organizationalmid,
+      </if>
+      <if test="organizationalbigsmal != null">
+        organizationalbigsmal,
+      </if>
+      <if test="numberpeople != null">
+        numberpeople,
+      </if>
+      <if test="establishmentdate != null">
+        establishmentdate,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+      <if test="listed != null">
+        listed,
+      </if>
+      <if test="shelltype != null">
+        shelltype,
+      </if>
+      <if test="enterprisetype != null">
+        enterprisetype,
+      </if>
+      <if test="legal != null">
+        legal,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="continent != null">
+        continent,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="county != null">
+        county,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="superiorholdingunit != null">
+        superiorholdingunit,
+      </if>
+      <if test="legallevel != null">
+        legallevel,
+      </if>
+      <if test="holdingratio != null">
+        holdingratio,
+      </if>
+      <if test="superiormanagementunit != null">
+        superiormanagementunit,
+      </if>
+      <if test="managelevel != null">
+        managelevel,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="businessscope != null">
+        businessscope,
+      </if>
+      <if test="businessscale != null">
+        businessscale,
+      </if>
+      <if test="businessstatus != null">
+        businessstatus,
+      </if>
+      <if test="isplatform != null">
+        isplatform,
+      </if>
+      <if test="finalaccounts != null">
+        finalaccounts,
+      </if>
+      <if test="operationstartdate != null">
+        operationstartdate,
+      </if>
+      <if test="operationenddate != null">
+        operationenddate,
+      </if>
+      <if test="creationdate != null">
+        creationdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+      <if test="cancellationtype != null">
+        cancellationtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="unittype != null">
+        #{unittype,jdbcType=VARCHAR},
+      </if>
+      <if test="newtype != null">
+        #{newtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creditcode != null">
+        #{creditcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null">
+        #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitcode != null">
+        #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitabbreviation != null">
+        #{unitabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="englishname != null">
+        #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="englishabbreviation != null">
+        #{englishabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalbig != null">
+        #{organizationalbig,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalmid != null">
+        #{organizationalmid,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalbigsmal != null">
+        #{organizationalbigsmal,jdbcType=VARCHAR},
+      </if>
+      <if test="numberpeople != null">
+        #{numberpeople,jdbcType=INTEGER},
+      </if>
+      <if test="establishmentdate != null">
+        #{establishmentdate,jdbcType=DATE},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="listed != null">
+        #{listed,jdbcType=CHAR},
+      </if>
+      <if test="shelltype != null">
+        #{shelltype,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisetype != null">
+        #{enterprisetype,jdbcType=VARCHAR},
+      </if>
+      <if test="legal != null">
+        #{legal,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="continent != null">
+        #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorholdingunit != null">
+        #{superiorholdingunit,jdbcType=VARCHAR},
+      </if>
+      <if test="legallevel != null">
+        #{legallevel,jdbcType=INTEGER},
+      </if>
+      <if test="holdingratio != null">
+        #{holdingratio,jdbcType=INTEGER},
+      </if>
+      <if test="superiormanagementunit != null">
+        #{superiormanagementunit,jdbcType=VARCHAR},
+      </if>
+      <if test="managelevel != null">
+        #{managelevel,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="businessscope != null">
+        #{businessscope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessscale != null">
+        #{businessscale,jdbcType=VARCHAR},
+      </if>
+      <if test="businessstatus != null">
+        #{businessstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isplatform != null">
+        #{isplatform,jdbcType=CHAR},
+      </if>
+      <if test="finalaccounts != null">
+        #{finalaccounts,jdbcType=CHAR},
+      </if>
+      <if test="operationstartdate != null">
+        #{operationstartdate,jdbcType=DATE},
+      </if>
+      <if test="operationenddate != null">
+        #{operationenddate,jdbcType=DATE},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=DATE},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="cancellationtype != null">
+        #{cancellationtype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanxi.coal.domain.OrgBaseInfo">
+    update org_base_info
+    <set>
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="unittype != null">
+        unittype = #{unittype,jdbcType=VARCHAR},
+      </if>
+      <if test="newtype != null">
+        newtype = #{newtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creditcode != null">
+        creditcode = #{creditcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null">
+        unitname = #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitcode != null">
+        unitcode = #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitabbreviation != null">
+        unitabbreviation = #{unitabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="englishname != null">
+        englishname = #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="englishabbreviation != null">
+        englishabbreviation = #{englishabbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalbig != null">
+        organizationalbig = #{organizationalbig,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalmid != null">
+        organizationalmid = #{organizationalmid,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationalbigsmal != null">
+        organizationalbigsmal = #{organizationalbigsmal,jdbcType=VARCHAR},
+      </if>
+      <if test="numberpeople != null">
+        numberpeople = #{numberpeople,jdbcType=INTEGER},
+      </if>
+      <if test="establishmentdate != null">
+        establishmentdate = #{establishmentdate,jdbcType=DATE},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="listed != null">
+        listed = #{listed,jdbcType=CHAR},
+      </if>
+      <if test="shelltype != null">
+        shelltype = #{shelltype,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisetype != null">
+        enterprisetype = #{enterprisetype,jdbcType=VARCHAR},
+      </if>
+      <if test="legal != null">
+        legal = #{legal,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="continent != null">
+        continent = #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        county = #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorholdingunit != null">
+        superiorholdingunit = #{superiorholdingunit,jdbcType=VARCHAR},
+      </if>
+      <if test="legallevel != null">
+        legallevel = #{legallevel,jdbcType=INTEGER},
+      </if>
+      <if test="holdingratio != null">
+        holdingratio = #{holdingratio,jdbcType=INTEGER},
+      </if>
+      <if test="superiormanagementunit != null">
+        superiormanagementunit = #{superiormanagementunit,jdbcType=VARCHAR},
+      </if>
+      <if test="managelevel != null">
+        managelevel = #{managelevel,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="businessscope != null">
+        businessscope = #{businessscope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessscale != null">
+        businessscale = #{businessscale,jdbcType=VARCHAR},
+      </if>
+      <if test="businessstatus != null">
+        businessstatus = #{businessstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isplatform != null">
+        isplatform = #{isplatform,jdbcType=CHAR},
+      </if>
+      <if test="finalaccounts != null">
+        finalaccounts = #{finalaccounts,jdbcType=CHAR},
+      </if>
+      <if test="operationstartdate != null">
+        operationstartdate = #{operationstartdate,jdbcType=DATE},
+      </if>
+      <if test="operationenddate != null">
+        operationenddate = #{operationenddate,jdbcType=DATE},
+      </if>
+      <if test="creationdate != null">
+        creationdate = #{creationdate,jdbcType=DATE},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="cancellationtype != null">
+        cancellationtype = #{cancellationtype,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanxi.coal.domain.OrgBaseInfo">
+    update org_base_info
+    set domain = #{domain,jdbcType=VARCHAR},
+      unittype = #{unittype,jdbcType=VARCHAR},
+      newtype = #{newtype,jdbcType=VARCHAR},
+      creditcode = #{creditcode,jdbcType=VARCHAR},
+      unitname = #{unitname,jdbcType=VARCHAR},
+      unitcode = #{unitcode,jdbcType=VARCHAR},
+      unitabbreviation = #{unitabbreviation,jdbcType=VARCHAR},
+      englishname = #{englishname,jdbcType=VARCHAR},
+      englishabbreviation = #{englishabbreviation,jdbcType=VARCHAR},
+      organizationalbig = #{organizationalbig,jdbcType=VARCHAR},
+      organizationalmid = #{organizationalmid,jdbcType=VARCHAR},
+      organizationalbigsmal = #{organizationalbigsmal,jdbcType=VARCHAR},
+      numberpeople = #{numberpeople,jdbcType=INTEGER},
+      establishmentdate = #{establishmentdate,jdbcType=DATE},
+      currency = #{currency,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=DECIMAL},
+      listed = #{listed,jdbcType=CHAR},
+      shelltype = #{shelltype,jdbcType=VARCHAR},
+      enterprisetype = #{enterprisetype,jdbcType=VARCHAR},
+      legal = #{legal,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      continent = #{continent,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      superiorholdingunit = #{superiorholdingunit,jdbcType=VARCHAR},
+      legallevel = #{legallevel,jdbcType=INTEGER},
+      holdingratio = #{holdingratio,jdbcType=INTEGER},
+      superiormanagementunit = #{superiormanagementunit,jdbcType=VARCHAR},
+      managelevel = #{managelevel,jdbcType=INTEGER},
+      industry = #{industry,jdbcType=VARCHAR},
+      businessscope = #{businessscope,jdbcType=VARCHAR},
+      businessscale = #{businessscale,jdbcType=VARCHAR},
+      businessstatus = #{businessstatus,jdbcType=VARCHAR},
+      isplatform = #{isplatform,jdbcType=CHAR},
+      finalaccounts = #{finalaccounts,jdbcType=CHAR},
+      operationstartdate = #{operationstartdate,jdbcType=DATE},
+      operationenddate = #{operationenddate,jdbcType=DATE},
+      creationdate = #{creationdate,jdbcType=DATE},
+      updatedate = #{updatedate,jdbcType=DATE},
+      cancellationtype = #{cancellationtype,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="list" resultType="com.shanxi.coal.domain.OrgBaseInfo">
+    select * from org_base_info
+    <where>
+<!--      <if test="userName != null">-->
+<!--        and user_name LIKE concat(concat('%',#{userName,jdbcType=VARCHAR}),'%')-->
+<!--      </if>-->
+    </where>
+
+  </select>
+</mapper>

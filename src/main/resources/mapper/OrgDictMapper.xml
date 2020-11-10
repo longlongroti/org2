@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.OrgDictMapper">
+  <resultMap id="BaseResultMap" type="com.shanxi.coal.domain.OrgDict">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dicname" jdbcType="VARCHAR" property="dicname" />
+    <result column="dicvalue" jdbcType="VARCHAR" property="dicvalue" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dicname, dicvalue, p_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from org_dict
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from org_dict
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shanxi.coal.domain.OrgDict">
+    insert into org_dict (id, dicname, dicvalue, 
+      p_id)
+    values (#{id,jdbcType=VARCHAR}, #{dicname,jdbcType=VARCHAR}, #{dicvalue,jdbcType=VARCHAR}, 
+      #{pId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanxi.coal.domain.OrgDict">
+    insert into org_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dicname != null">
+        dicname,
+      </if>
+      <if test="dicvalue != null">
+        dicvalue,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dicname != null">
+        #{dicname,jdbcType=VARCHAR},
+      </if>
+      <if test="dicvalue != null">
+        #{dicvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanxi.coal.domain.OrgDict">
+    update org_dict
+    <set>
+      <if test="dicname != null">
+        dicname = #{dicname,jdbcType=VARCHAR},
+      </if>
+      <if test="dicvalue != null">
+        dicvalue = #{dicvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanxi.coal.domain.OrgDict">
+    update org_dict
+    set dicname = #{dicname,jdbcType=VARCHAR},
+      dicvalue = #{dicvalue,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_dict
+    where dicname = #{dicname,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

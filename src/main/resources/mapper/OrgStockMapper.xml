@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.OrgStockMapper">
+  <resultMap id="BaseResultMap" type="com.shanxi.coal.domain.OrgStock">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="shareholdername" jdbcType="VARCHAR" property="shareholdername" />
+    <result column="nationality" jdbcType="CHAR" property="nationality" />
+    <result column="nature" jdbcType="CHAR" property="nature" />
+    <result column="organization" jdbcType="CHAR" property="organization" />
+    <result column="proportion" jdbcType="DECIMAL" property="proportion" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shareholdername, nationality, nature, organization, proportion, org_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from org_stock
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from org_stock
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shanxi.coal.domain.OrgStock">
+    insert into org_stock (id, shareholdername, nationality, 
+      nature, organization, proportion, 
+      org_id)
+    values (#{id,jdbcType=VARCHAR}, #{shareholdername,jdbcType=VARCHAR}, #{nationality,jdbcType=CHAR}, 
+      #{nature,jdbcType=CHAR}, #{organization,jdbcType=CHAR}, #{proportion,jdbcType=DECIMAL}, 
+      #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanxi.coal.domain.OrgStock">
+    insert into org_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shareholdername != null">
+        shareholdername,
+      </if>
+      <if test="nationality != null">
+        nationality,
+      </if>
+      <if test="nature != null">
+        nature,
+      </if>
+      <if test="organization != null">
+        organization,
+      </if>
+      <if test="proportion != null">
+        proportion,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdername != null">
+        #{shareholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="nature != null">
+        #{nature,jdbcType=CHAR},
+      </if>
+      <if test="organization != null">
+        #{organization,jdbcType=CHAR},
+      </if>
+      <if test="proportion != null">
+        #{proportion,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanxi.coal.domain.OrgStock">
+    update org_stock
+    <set>
+      <if test="shareholdername != null">
+        shareholdername = #{shareholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        nationality = #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="nature != null">
+        nature = #{nature,jdbcType=CHAR},
+      </if>
+      <if test="organization != null">
+        organization = #{organization,jdbcType=CHAR},
+      </if>
+      <if test="proportion != null">
+        proportion = #{proportion,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanxi.coal.domain.OrgStock">
+    update org_stock
+    set shareholdername = #{shareholdername,jdbcType=VARCHAR},
+      nationality = #{nationality,jdbcType=CHAR},
+      nature = #{nature,jdbcType=CHAR},
+      organization = #{organization,jdbcType=CHAR},
+      proportion = #{proportion,jdbcType=DECIMAL},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
