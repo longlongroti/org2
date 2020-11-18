@@ -20,6 +20,7 @@
     <link th:href="@{/asserts/js/layer/laydate/skins/default/laydate.css}" rel="stylesheet">
     <link th:href="@{/asserts/js/layer/laydate/need/laydate.css}" rel="stylesheet">
 
+
 </head>
 
 <body class="gray-bg">
@@ -28,464 +29,445 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5 class="col-sm-10 padding-top-10">[[${orgBase!=null}?企业基本信息编辑:企业基本信息新增]]</h5>
+                    <h5 class="col-sm-10 padding-top-10">[[${orgBaseInfo!=null}?企业基本信息编辑:企业基本信息新增]]</h5>
                     <div class="col-sm-2 text-right"><a href="javascript:history.back(-1)">返回</a></div>
                 </div>
 
                 <div class="ibox-content">
                     <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 基础信息</a>
-                            </li>
-                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">股权结构信息</a>
-                            </li>
-                            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">人员信息</a>
-                            </li>
-                            <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">参股企业信息</a>
-                            </li>
-                        </ul>
+
                         <div class="tab-content">
-                            <div id="tab-1" class="tab-pane active">
-                                <div class="panel-body">
-                                    <form th:action="@{/orgbase/do}" th:method="post">
-                                        <input name="_method" th:if="${orgBase!=null}" type="hidden" value="PUT"/>
-                                        <input name="uuid" th:value="${orgBase!=null}?${orgBase.id}" type="hidden"/>
-                                        <div class="form-group row">
+                            <form th:action="@{/orgbase/do}" th:method="post">
+                                <input name="_method" th:if="${orgBaseInfo!=null}" type="hidden" value="PUT"/>
+                                <input name="id" th:value="${orgBaseInfo!=null}?${orgBaseInfo.id}" type="hidden"/>
+                                <div class="form-group row">
 
-                                            <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>境内/境外</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="domain">
-                                                    <option th:each="f:${jnwDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
+                                    <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>境内/境外</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="domain" >
+                                            <option th:each="f:${jnwDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
 
-                                            <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>单位类型</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="unittype">
-                                                    <option th:each="f:${dwlxDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>新增类型</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="newtype">
-                                                    <option th:each="f:${xzlxDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >统一社会信用代码</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="creditcode" name="creditcode" placeholder="统一社会信用代码"
-                                                       th:placeholder="统一社会信用代码"
-                                                       th:value="${orgBase!=null}?${orgBase.creditcode}" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>单位名称</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="unitname" name="unitname" placeholder="单位名称"
-                                                       th:placeholder="单位名称"
-                                                       th:value="${orgBase!=null}?${orgBase.unitname}" type="text">
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >企业编码</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="unitcode" name="unitcode" placeholder="企业编码"
-                                                       th:placeholder="企业编码"
-                                                       th:value="${orgBase!=null}?${orgBase.unitcode}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >单位简称</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="unitabbreviation" name="unitabbreviation" placeholder="单位简称"
-                                                       th:placeholder="请输入"
-                                                       th:value="${orgBase!=null}?${orgBase.unitabbreviation}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >英文全称</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="englishname" name="englishname" placeholder="英文全称"
-                                                       th:placeholder="英文全称"
-                                                       th:value="${orgBase!=null}?${orgBase.englishname}" type="text">
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >英文简称</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="englishabbreviation" name="englishabbreviation" placeholder="英文简称"
-                                                       th:placeholder="英文简称"
-                                                       th:value="${orgBase!=null}?${orgBase.englishabbreviation}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-
-                                            <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>组织形式</label>
-                                            <div class="col-sm-10">
-                                                <select class="selectpicker" data-live-search="false" name="roles">
-                                                    <option th:each="f:${zzxsDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                                <select class="selectpicker" data-live-search="false" name="roles">
-                                                    <option th:each="f:${userRolesSelection}" th:text="${f.name}" th:value="${f.uuid}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                                <select class="selectpicker" data-live-search="false" name="roles">
-                                                    <option th:each="f:${userRolesSelection}" th:text="${f.name}" th:value="${f.uuid}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >企业人数</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="numberpeople" name="numberpeople" placeholder="企业人数"
-                                                       th:placeholder="企业人数"
-                                                       th:value="${orgBase!=null}?${orgBase.numberpeople}" type="text">
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >成立日期</label>
-                                            <div class="col-sm-4">
-                                                <input class="laydate-icon form-control layer-date" id="establishmentdate" name="establishmentdate" th:placeholder="成立日期"
-                                                       onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                                       th:value="${orgBase!=null}?${orgBase.establishmentdate}" >
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >币种</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="currency">
-                                                    <option th:each="f:${bzDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >注册资本</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="capital" name="capital" placeholder="注册资本"
-                                                       th:placeholder="注册资本"
-                                                       th:value="${orgBase!=null}?${orgBase.capital}" type="text">
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否上市</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="listed">
-                                                    <option th:each="f:${sfssDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>空壳公司类别</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="shelltype">
-                                                    <option th:each="f:${kkgslbDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>企业类型</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="enterprisetype">
-                                                    <option th:each="f:${qylxDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>法定代表人</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="legal" name="legal" placeholder="法定代表人"
-                                                       th:placeholder="法定代表人"
-                                                       th:value="${orgBase!=null}?${orgBase.legal}" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >官网</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="website" name="website" placeholder="官网"
-                                                       th:placeholder="官网"
-                                                       th:value="${orgBase!=null}?${orgBase.website}" type="text">
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >联系电话</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="phone" name="phone" placeholder="联系电话"
-                                                       th:placeholder="联系电话"
-                                                       th:value="${orgBase!=null}?${orgBase.phone}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="clr"></div>
-                                        <h4>单位地址信息</h4>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属大洲</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="continent">
-                                                    <option th:each="f:${ssdzDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属国家</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" id="country" name="country">
-
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所在地区</label>
-                                            <div class="col-sm-10">
-                                                <select class="selectpicker" data-live-search="false" id="province" name="province">
-                                                </select>
-                                                <select class="selectpicker" data-live-search="false" id="city" name="city">
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >注册地址</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" id="address" name="address" placeholder="注册地址"
-                                                       th:placeholder="注册地址"
-                                                       th:value="${orgBase!=null}?${orgBase.address}" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="clr"></div>
-                                        <h4>法人层级信息</h4>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级控股单位</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="superiorholdingunit">
-                                                    <option th:each="f:${userRolesSelection}" th:text="${f.name}" th:value="${f.uuid}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >本单位法人层级</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="legallevel" name="legallevel" placeholder="本单位法人层级"
-                                                       th:placeholder="本单位法人层级"
-                                                       th:value="${orgBase!=null}?${orgBase.legallevel}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级控股比例%</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" id="holdingratio" name="holdingratio" placeholder="上级控股比例"
-                                                       th:placeholder="上级控股比例"
-                                                       th:value="${orgBase!=null}?${orgBase.holdingratio}" type="text">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="clr"></div>
-                                        <h4>管理层级信息</h4>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级管理单位</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="superiormanagementunit">
-                                                    <option th:each="f:${userRolesSelection}" th:text="${f.name}" th:value="${f.uuid}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >本单位管理层级</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="managelevel" name="managelevel" placeholder="本单位管理层级"
-                                                       th:placeholder="本单位管理层级"
-                                                       th:value="${orgBase!=null}?${orgBase.managelevel}" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="clr"></div>
-                                        <h4>经营状况信息</h4>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="clr"></div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属行业</label>
-                                            <div class="col-sm-10">
-                                                <textarea cols="120" rows="5"></textarea>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>经营范围</label>
-                                            <div class="col-sm-10">
-                                                <textarea cols="120" rows="5" name="businessscope"></textarea>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >经营规模</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="businessscale">
-                                                    <option th:each="f:${jygmDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >经营状态</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="businessstatus">
-                                                    <option th:each="f:${jyztDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >是否平台公司</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="isplatform">
-                                                    <option th:each="f:${sfptgsDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否纳入决算</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="finalaccounts">
-                                                    <option th:each="f:${sfnrjsDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >经营期限自</label>
-                                            <div class="col-sm-4">
-                                                <input class="laydate-icon form-control layer-date" id="operationstartdate" name="operationstartdate" th:placeholder="成立日期"
-                                                       onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                                       th:value="${orgBase!=null}?${orgBase.operationstartdate}" >
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >经营期限至</label>
-                                            <div class="col-sm-4">
-                                                <input class="laydate-icon form-control layer-date" id="operationenddate" name="operationenddate" th:placeholder="成立日期"
-                                                       onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                                       th:value="${orgBase!=null}?${orgBase.operationenddate}" >
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >创建时间</label>
-                                            <div class="col-sm-4">
-                                                <input class="laydate-icon form-control layer-date" id="creationdate" name="creationdate" th:placeholder="成立日期"
-                                                       onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                                       th:value="${orgBase!=null}?${orgBase.creationdate}" >
-
-                                            </div>
-
-                                            <label class="col-sm-2 col-form-label my-font-bold" >变更时间</label>
-                                            <div class="col-sm-4">
-                                                <input class="laydate-icon form-control layer-date" id="updatedate" name="updatedate" th:placeholder="成立日期"
-                                                       onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                                       th:value="${orgBase!=null}?${orgBase.updatedate}" >
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label my-font-bold" >注销类型</label>
-                                            <div class="col-sm-4">
-                                                <select class="selectpicker" data-live-search="false" name="cancellationtype">
-                                                    <option th:each="f:${zxlxDict}" th:text="${f.dicvalue}" th:value="${f.id}">
-                                                        Choose...
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                        <div class="clr"></div>
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="form-group row" style="text-align: center">
-                                            <div class="col-md-12" >
-                                                <button class="btn btn-primary btn-sm badge-pill fa fa-save" type="submit">
-                                                    保存
-                                                </button>
-                                                <button class="btn btn-sm badge-pill fa fa-delicious" type="button">
-                                                    取消
-                                                </button>
-                                            </div>
-
-                                        </div>
-
-                                    </form>
+                                    <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>单位类型</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="unittype">
+                                            <option th:each="f:${dwlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="tab-2" class="tab-pane">
-                                <div class="panel-body">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>新增类型</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="newtype">
+                                            <option th:each="f:${xzlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >统一社会信用代码</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="creditcode" name="creditcode" placeholder="统一社会信用代码"
+                                               th:placeholder="统一社会信用代码"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.creditcode}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>单位名称</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="unitname" name="unitname" placeholder="单位名称"
+                                               th:placeholder="单位名称"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.unitname}" type="text">
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >企业编码</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="unitcode" name="unitcode" placeholder="企业编码"
+                                               th:placeholder="企业编码"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.unitcode}" type="text">
+                                    </div>
 
                                 </div>
-                            </div>
+
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >单位简称</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="unitabbreviation" name="unitabbreviation" placeholder="单位简称"
+                                               th:placeholder="请输入"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.unitabbreviation}" type="text">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >英文全称</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="englishname" name="englishname" placeholder="英文全称"
+                                               th:placeholder="英文全称"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.englishname}" type="text">
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >英文简称</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="englishabbreviation" name="englishabbreviation" placeholder="英文简称"
+                                               th:placeholder="英文简称"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.englishabbreviation}" type="text">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>组织形式</label>
+                                    <div class="col-sm-10">
+                                        <select class="selectpicker" data-live-search="false" id="organizationalbig" name="organizationalbig" onchange="findMid();">
+                                            <option th:each="f:${zzxsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                        <select class="selectpicker" data-live-search="false" id="organizationalmid" name="organizationalmid" onchange="findSmal();">
+                                        </select>
+                                        <select class="selectpicker" data-live-search="false" id="organizationalbigsmal" name="organizationalbigsmal">
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >企业人数</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="numberpeople" name="numberpeople" placeholder="企业人数"
+                                               th:placeholder="企业人数"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.numberpeople}" type="text">
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >成立日期</label>
+                                    <div class="col-sm-4">
+                                        <input class="laydate-icon form-control layer-date" id="establishmentdate" name="establishmentdate" th:placeholder="成立日期"
+                                               onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.establishmentdate}" >
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >币种</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="currency">
+                                            <option th:each="f:${bzDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >注册资本</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="capital" name="capital" placeholder="注册资本"
+                                               th:placeholder="注册资本"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.capital}" type="text">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否上市</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="listed">
+                                            <option th:each="f:${sfssDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>空壳公司类别</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="shelltype">
+                                            <option th:each="f:${kkgslbDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>企业类型</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="enterprisetype">
+                                            <option th:each="f:${qylxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>法定代表人</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="legal" name="legal" placeholder="法定代表人"
+                                               th:placeholder="法定代表人"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.legal}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >官网</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="website" name="website" placeholder="官网"
+                                               th:placeholder="官网"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.website}" type="text">
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >联系电话</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="phone" name="phone" placeholder="联系电话"
+                                               th:placeholder="联系电话"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.phone}" type="text">
+                                    </div>
+
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="clr"></div>
+                                <h4>单位地址信息</h4>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属大洲</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" id="continent" name="continent" onchange="findCountry();">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${ssdzDict}" th:text="${f.dicvalue}" th:value="${f.id}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属国家</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" id="country" name="country" onchange="findProvince();">
+                                            <option value="0">请选择</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所在地区</label>
+                                    <div class="col-sm-10">
+                                        <select class="selectpicker" data-live-search="false" id="province" name="province" onchange="findCity();">
+                                        </select>
+                                        <select class="selectpicker" data-live-search="false" id="city" name="city" onchange="findCounty();">
+                                        </select>
+                                        <select class="selectpicker" data-live-search="false" id="county" name="county">
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >注册地址</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="address" name="address" placeholder="注册地址"
+                                               th:placeholder="注册地址"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.address}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="clr"></div>
+                                <h4>法人层级信息</h4>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级控股单位</label>
+                                    <div class="col-sm-4">
+                                        <input id="hdsuperiorholdingunit" type="hidden">
+                                        <input class="form-control" id="superiorholdingunit" name="superiorholdingunit" placeholder="上级控股单位"
+                                               th:placeholder="上级控股单位"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiorholdingunit}" type="text">
+
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >本单位法人层级</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="legallevel" name="legallevel" placeholder="本单位法人层级"
+                                               th:placeholder="本单位法人层级"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.legallevel}" type="text" readonly="readonly">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级控股比例%</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="holdingratio" name="holdingratio" placeholder="上级控股比例"
+                                               th:placeholder="上级控股比例"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.holdingratio}" type="text">
+                                    </div>
+
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="clr"></div>
+                                <h4>管理层级信息</h4>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级管理单位</label>
+                                    <div class="col-sm-4">
+                                        <input id="hdsuperiormanagementunit" type="hidden">
+                                        <input class="form-control" id="superiormanagementunit" name="superiormanagementunit" placeholder="上级管理单位"
+                                               th:placeholder="上级管理单位"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiormanagementunit}" type="text" readonly="readonly">
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >本单位管理层级</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="managelevel" name="managelevel" placeholder="本单位管理层级"
+                                               th:placeholder="本单位管理层级"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.managelevel}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="clr"></div>
+                                <h4>经营状况信息</h4>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="clr"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属行业</label>
+                                    <div class="col-sm-10">
+                                        <textarea cols="120" rows="5" id="industry" name="industry"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>经营范围</label>
+                                    <div class="col-sm-10">
+                                        <textarea cols="120" rows="5" name="businessscope"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >经营规模</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="businessscale">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${jygmDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >经营状态</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="businessstatus">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${jyztDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >是否平台公司</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="isplatform">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${sfptgsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否纳入决算</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="finalaccounts">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${sfnrjsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >经营期限自</label>
+                                    <div class="col-sm-4">
+                                        <input class="laydate-icon form-control layer-date" id="operationstartdate" name="operationstartdate" th:placeholder="成立日期"
+                                               onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.operationstartdate}" >
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >经营期限至</label>
+                                    <div class="col-sm-4">
+                                        <input class="laydate-icon form-control layer-date" id="operationenddate" name="operationenddate" th:placeholder="成立日期"
+                                               onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.operationenddate}" >
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >创建时间</label>
+                                    <div class="col-sm-4">
+                                        <input class="laydate-icon form-control layer-date" id="creationdate" name="creationdate" th:placeholder="成立日期"
+                                               onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.creationdate}" >
+
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label my-font-bold" >变更时间</label>
+                                    <div class="col-sm-4">
+                                        <input class="laydate-icon form-control layer-date" id="updatedate" name="updatedate" th:placeholder="成立日期"
+                                               onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.updatedate}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label my-font-bold" >注销类型</label>
+                                    <div class="col-sm-4">
+                                        <select class="selectpicker" data-live-search="false" name="cancellationtype">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${zxlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                                Choose...
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="clr"></div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row" style="text-align: center">
+                                    <div class="col-md-12" >
+                                        <button class="btn btn-primary btn-sm badge-pill fa fa-save" type="submit">
+                                            保存
+                                        </button>
+                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button">
+                                            取消
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </form>
                         </div>
-
-
                     </div>
 
                     <div class="clr"></div>
@@ -507,38 +489,520 @@
         th:src="@{/asserts/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}" type="text/javascript"></script>
 <script src="asserts/js/bootstrap-select.min.js" th:src="@{/asserts/js/bootstrap-select.min.js}"
         type="text/javascript"></script>
+<script th:src="@{/asserts/js/tree-view/js/bootstrap-treeview-cl.js?v=1.1}" type="text/javascript"></script>
 
 
 <script th:inline="javascript">
-    $(function () {
+
+    function findMid(){
+        var id = $("#organizationalbig").val();
+        $.get("findPid", {id: id},
+            function(data){
+                //清空
+                $("#organizationalmid").empty();
+                $("#organizationalbigsmal").empty();
+
+                var json = eval('(' + data + ')');
+                $("#organizationalmid").append("<option value='0'>请选择</option>")
+                for(var i=0;i<json.length;i++){
+                    $("#organizationalmid").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+
+                $("#organizationalmid").selectpicker('refresh');
+                $("#organizationalbigsmal").selectpicker('refresh');
+            });
+    }
+
+    function findSmal(){
+
+        var id = $("#organizationalmid").val();
+        $.get("findPid", {id: id},
+            function(data){
+                $("#organizationalbigsmal").empty();
+                var json = eval('(' + data + ')');
+                $("#organizationalbigsmal").append("<option value='0'>请选择</option>")
+                for(var i=0;i<json.length;i++){
+                    $("#organizationalbigsmal").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+                $("#organizationalbigsmal").selectpicker('refresh');
+            });
+    }
 
 
-        let sysUserRoles = [[${orgBase} ? ${orgBase.sysUserRoles}]];
-        if (sysUserRoles) {
-            let arr = [];
-            for (var a = 0, length = sysUserRoles.length; a < length; a++) {
-                arr.push(sysUserRoles[a].roleId)
+    function findCountry(){
+        var id = $("#continent").val();
+        $.get("findPid", {id: id},
+            function(data){
+
+                $("#country").empty();
+                $("#province").empty();
+                $("#city").empty();
+                $("#county").empty();
+
+                var json = eval('(' + data + ')');
+                $("#country").append("<option value='0'>请选择</option>")
+                for(var i=0;i<json.length;i++){
+                    $("#country").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+
+                $("#country").selectpicker('refresh');
+                $("#province").selectpicker('refresh');
+                $("#city").selectpicker('refresh');
+                $("#county").selectpicker('refresh');
+
+            });
+    }
+
+    function findProvince(){
+        var id = $("#country").val();
+        $.get("findPid", {id: id},
+            function(data){
+
+                $("#province").empty();
+                $("#city").empty();
+                $("#county").empty();
+
+                var json = eval('(' + data + ')');
+                $("#province").append("<option value='0'>请选择</option>");
+                for(var i=0;i<json.length;i++){
+                    $("#province").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+
+                $("#province").selectpicker('refresh');
+                $("#city").selectpicker('refresh');
+                $("#county").selectpicker('refresh');
+            });
+    }
+
+    function findCity(){
+        var id = $("#province").val();
+        $.get("findPid", {id: id},
+            function(data){
+
+                $("#city").empty();
+                $("#county").empty();
+
+                var json = eval('(' + data + ')');
+                $("#city").append("<option value='0'>请选择</option>");
+                for(var i=0;i<json.length;i++){
+                    $("#city").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+
+                $("#city").selectpicker('refresh');
+                $("#county").selectpicker('refresh');
+            });
+    }
+
+    function findCounty(){
+        var id = $("#city").val();
+        $.get("findPid", {id: id},
+            function(data){
+                $("#county").empty();
+                var json = eval('(' + data + ')');
+                $("#county").append("<option value='0'>请选择</option>");
+                for(var i=0;i<json.length;i++){
+                    $("#county").append("<option value='"+json[i].id+"'>"+json[i].dicvalue+"</option>")
+                }
+                $("#county").selectpicker('refresh');
+            });
+    }
+
+    //选择上级单位弹窗
+    $('#superiorholdingunit').on('click', function () {
+
+        createTable();
+
+        layer.open({
+            title: '选择上级单位', //标题
+            type: 1,
+            area: ['900px', '400px'],
+            content: $('#sjSelectionBox'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            btn: ['保存', '关闭'],
+            yes: function (index, layero) {
+                $('#hdsuperiorholdingunit').val(selectionIds);
+                $('#superiorholdingunit').val(selectionNames);
+                //按钮【提交】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            },
+            btn2: function (index, layero) {
+                //按钮【取消】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
-            $('.roleSelectpicker').selectpicker('val', arr);
-        }
-        let sysUserAuditRoles = [[${orgBase} ? ${orgBase.sysUserAuditRoles}]];
-        let arr2 = [];
-        if (sysUserAuditRoles) {
-            for (let a = 0, length = sysUserAuditRoles.length; a < length; a++) {
-                arr2.push(sysUserAuditRoles[a].auditRoleId)
+        });
+    });
+
+    //选择管理单位弹窗
+    $('#superiormanagementunit').on('click', function () {
+
+        createSTable();
+
+        layer.open({
+            title: '选择上级管理单位', //标题
+            type: 1,
+            area: ['900px', '400px'],
+            content: $('#glSelectionBox'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            btn: ['保存', '关闭'],
+            yes: function (index, layero) {
+                $('#hdsuperiormanagementunit').val(sselectionIds);
+                $('#superiormanagementunit').val(sselectionNames);
+                //按钮【提交】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            },
+            btn2: function (index, layero) {
+                //按钮【取消】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
-            $('.auditRoleSelectpicker').selectpicker('val', arr2);
-        }
-        let sysUserDataRoles = [[${orgBase} ? ${orgBase.sysUserDataRoles}]];
-        let arr3 = [];
-        if (sysUserDataRoles) {
-            for (let a = 0, length = sysUserDataRoles.length; a < length; a++) {
-                arr3.push(sysUserDataRoles[a].roleId)
+        });
+    });
+
+    //选择所属行业
+    $('#industry').on('click', function () {
+        getTree();
+        layer.open({
+            title: '选择上级管理单位', //标题
+            type: 1,
+            area: ['900px', '400px'],
+            content: $('#treeSelectionBox'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            btn: ['保存', '关闭'],
+            yes: function (index, layero) {
+               // $('#hdsuperiormanagementunit').val(sselectionIds);
+               // $('#superiormanagementunit').val(sselectionNames);
+                //按钮【提交】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            },
+            btn2: function (index, layero) {
+                //按钮【取消】的回调
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
-            $('.dataRoleSelectpicker').selectpicker('val', arr3);
-        }
-    })
+        });
+    });
+
+
 </script>
 
 </body>
 </html>
+
+<!--Describe：选择上级控股-Start-->
+<div id="sjSelectionBox" style="display: none; width: 875px;margin-left: 10px;">
+    <div class="ibox-content">
+        <div class="col-sm-12 pd-lr-0">
+            <div class="input-group">
+                <input type="text" id="sunitname" name="sunitname" placeholder="企业名称" class="input-sm form-control"> <span
+                    class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="createTable()"> 搜索</button> </span>
+            </div>
+        </div>
+
+        <div class="col-sm-12 pd-lr-0" style="height: 25px"></div>
+
+        <!--bootsrap表格带分页 Start-->
+        <div class="table-responsive col-sm-12 box-border pd-lr-0 margin-top-20">
+            <table id="table">
+            </table>
+        </div>
+        <script type="text/javascript">
+            var selectionIds = [];  //保存选中ids
+            var selectionNames = [];
+
+            function createTable() {
+                let url = '[[@{/orgbase/list}]]'
+                $("#table").bootstrapTable('destroy');
+                $("#table").bootstrapTable({
+                    url: url,        //请求后台的URL（*）
+                    method: 'post',                      //请求方式（*）
+                    contentType: "application/x-www-form-urlencoded",
+                    pagination: true,                   //是否显示分页（*）
+                    cache: false,
+                    pageSize: 10,//每页一条数据
+                    striped: true,  //表格显示条纹
+                    dataField: "list",
+                    queryParamsType: "undefined",
+                    singleSelect: true,
+                    responseHandler: responseHandler,
+                    queryParams: function queryParams(params) {   //设置查询参数
+                        var param = {
+                            pageNumber: params.pageNumber,
+                            pageSize: params.pageSize,
+                            unitname: $("#sunitname").val(),
+                            unittype:1 //法人单位
+                        };
+                        return param;
+                    },
+                    sidePagination: 'server',
+                    pageNumber: 1,
+                    columns: [{
+                        field: "id",
+                        visible: false
+                    }, {
+                        field: "checkStatus",
+                        checkbox: true,
+                    }, {
+                        field: "unitname",
+                        title: "单位名称"
+                    }, {
+                        field: "domain",
+                        title: "境内/境外"
+                    }, {
+                        field: "x",
+                        title: "法人层级"
+                    }]
+                });
+
+                $("#table").on('check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table', function (e, list) {
+                    selectionIds = list.id;
+                    selectionNames = list.unitname;
+                });
+
+                //表格分页之前处理多选框数据
+                function responseHandler(res) {
+                    $.each(res.list, function (i, list) {
+                        list.checkStatus = $.inArray(list.id, selectionIds) != -1;  //判断当前行的数据id是否存在与选中的数组，存在则将多选框状态变为true
+                    });
+                    return res;
+                }
+            }
+
+        </script>
+        <!--bootsrap表格带分页 Start-->
+    </div>
+</div>
+<!--Describe：选择上级控股-End-->
+
+<!--Describe：选择上级控股-Start-->
+<div id="glSelectionBox" style="display: none; width: 875px;margin-left: 10px;">
+    <div class="ibox-content">
+        <div class="col-sm-12 pd-lr-0">
+            <div class="input-group">
+                <input type="text" id="ssunitname" name="ssunitname" placeholder="企业名称" class="input-sm form-control"> <span
+                    class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="createSTable()"> 搜索</button> </span>
+            </div>
+        </div>
+
+        <div class="col-sm-12 pd-lr-0" style="height: 25px"></div>
+
+        <!--bootsrap表格带分页 Start-->
+        <div class="table-responsive col-sm-12 box-border pd-lr-0 margin-top-20">
+            <table id="table2">
+            </table>
+        </div>
+        <script type="text/javascript">
+            var sselectionIds = [];  //保存选中ids
+            var sselectionNames = [];
+
+            function createSTable() {
+                let url = '[[@{/orgbase/list}]]'
+                $("#table2").bootstrapTable('destroy');
+                $("#table2").bootstrapTable({
+                    url: url,        //请求后台的URL（*）
+                    method: 'post',                      //请求方式（*）
+                    contentType: "application/x-www-form-urlencoded",
+                    pagination: true,                   //是否显示分页（*）
+                    cache: false,
+                    pageSize: 10,//每页一条数据
+                    striped: true,  //表格显示条纹
+                    dataField: "list",
+                    queryParamsType: "undefined",
+                    singleSelect: true,
+                    responseHandler: responseHandler,
+                    queryParams: function queryParams(params) {   //设置查询参数
+                        var param = {
+                            pageNumber: params.pageNumber,
+                            pageSize: params.pageSize,
+                            unitname: $("#ssunitname").val()
+                        };
+                        return param;
+                    },
+                    sidePagination: 'server',
+                    pageNumber: 1,
+                    columns: [{
+                        field: "id",
+                        visible: false
+                    }, {
+                        field: "checkStatus",
+                        checkbox: true,
+                    }, {
+                        field: "unitname",
+                        title: "单位名称"
+                    }, {
+                        field: "domain",
+                        title: "境内/境外"
+                    }, {
+                        field: "x",
+                        title: "管理层级"
+                    }]
+                });
+
+                $("#table2").on('check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table', function (e, list) {
+                    sselectionIds = list.id;
+                    sselectionNames = list.unitname;
+                });
+
+                //表格分页之前处理多选框数据
+                function responseHandler(res) {
+                    $.each(res.list, function (i, list) {
+                        list.checkStatus = $.inArray(list.id, sselectionIds) != -1;  //判断当前行的数据id是否存在与选中的数组，存在则将多选框状态变为true
+                    });
+                    return res;
+                }
+            }
+
+        </script>
+        <!--bootsrap表格带分页 Start-->
+    </div>
+</div>
+<!--Describe：选择上级控股-End-->
+
+<!--Describe：选择上级控股-Start-->
+<div id="treeSelectionBox" style="display: none; width: 875px;margin-left: 10px;">
+    <div class="ibox-content">
+        <div class="col-sm-12 pd-lr-0">
+            <div class="input-group">
+                <input type="text" id="sdicvalue" name="sdicvalue" placeholder="行业名称" class="input-sm form-control"> <span
+                    class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="getTree2();"> 搜索</button> &nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-sm" onclick="getTree();"> 重置</button>
+            </span>
+            </div>
+        </div>
+
+        <div class="col-sm-12 pd-lr-0" style="height: 25px"></div>
+
+        <!--bootsrap表格带分页 Start-->
+        <div class="table-responsive col-sm-12 box-border pd-lr-0 margin-top-20">
+            <div class="col-sm-12 " id="tree">
+            </div>
+        </div>
+
+        <!--bootsrap表格带分页 Start-->
+    </div>
+    <script>
+        //创建树
+        function getTree() {
+            $.ajax({
+                url: "findTree",
+                type: "get",
+                success: function (data) {
+                    data = eval('(' + data + ')');
+                    resolve(data)
+                },
+                error: function (data) {
+                }
+            });
+        }
+
+        function getTree2() {
+            $.ajax({
+                url: 'findTree',
+                type: "get",
+                data: "dicvalue=" + $("#sdicvalue").val(),
+                success: function (data) {
+                    data = eval('(' + data + ')');
+                    resolve2(data);
+                }
+            });
+        }
+
+        function resolve(data) {
+            $('#tree').treeview({
+                collapseIcon: "fa fa-minus",
+                nodeIcon: "fa fa-building-o",
+                emptyIcon: "",
+                showIcon: true,
+                levels: 1,
+                expandIcon: "fa fa-plus",
+                showCheckbox: true,
+                multiSelect: true,
+                data: data,
+                showTags: true,
+                onNodeChecked: nodeChecked,
+                onNodeUnchecked: nodeUnchecked,
+                onNodeExpanded: function (event, data) {
+                    let id = data['nodeId'];		//获取节点的nodeid （nodeid是treeview自动生成的，每个节点不同）
+                    $.ajax({					//异步加载当前节点的子节点数据
+                        type: "post",
+                        url: "getByParent",
+                        async: false,
+                        dataType: 'json',
+                        data: 'parentId=' + data['id'],
+                        success: function (result) {
+                            let arr = [];
+                            $("#tree").treeview("deleteChildrenNode", id);
+                            for (var i = 0; i < result.length; i++) {
+                                //result[i]的格式如下图
+                                arr.push(result[i]);
+                            }
+                            $("#tree").treeview("addNode", [id, {node: arr, silent: true}]);
+                        }
+                    })
+                }
+            });
+        }
+
+        function resolve2(data) {
+            $('#tree').treeview({
+                collapseIcon: "fa fa-minus",
+                nodeIcon: "fa fa-building-o",
+                emptyIcon: "",
+                showIcon: true,
+                levels: 8,
+                expandIcon: "fa fa-plus",
+                data: data,
+                showTags: true,
+                onNodeSelected: function (event, data) {
+
+                },
+                onNodeUnselected: function (event, data) {
+
+                }
+            });
+        }
+
+        var nodeCheckedSilent = false;
+
+        function nodeChecked(event, node) {
+            if (nodeCheckedSilent) {
+                return;
+            }
+            nodeCheckedSilent = true;
+            checkAllSon(node);
+            nodeCheckedSilent = false;
+        }
+
+        let nodeUncheckedSilent = false;
+
+        function nodeUnchecked(event, node) {
+            if (nodeUncheckedSilent)
+                return;
+            nodeUncheckedSilent = true;
+            uncheckAllSon(node);
+            nodeUncheckedSilent = false;
+        }
+
+        //级联选中所有子节点
+        function checkAllSon(node) {
+            $('#tree').treeview('checkNode', node.nodeId, {
+                silent: true
+            });
+            if (node.nodes != null && node.nodes.length > 0) {
+                for (let i in node.nodes) {
+                    checkAllSon(node.nodes[i]);
+                }
+            }
+        }
+
+        //级联取消所有子节点
+        function uncheckAllSon(node) {
+            $('#tree').treeview('uncheckNode', node.nodeId, {
+                silent: true
+            });
+            if (node.nodes != null && node.nodes.length > 0) {
+                for (let i in node.nodes) {
+                    uncheckAllSon(node.nodes[i]);
+                }
+            }
+        }
+    </script>
+</div>
+<!--Describe：选择上级控股-End-->

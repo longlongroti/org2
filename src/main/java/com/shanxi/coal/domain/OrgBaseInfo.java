@@ -33,7 +33,7 @@ public class OrgBaseInfo implements Serializable {
 
     private Integer numberpeople;
 
-    private Date establishmentdate;
+    private String establishmentdate;
 
     private String currency;
 
@@ -85,13 +85,13 @@ public class OrgBaseInfo implements Serializable {
 
     private String finalaccounts;
 
-    private Date operationstartdate;
+    private String operationstartdate;
 
-    private Date operationenddate;
+    private String operationenddate;
 
-    private Date creationdate;
+    private String creationdate;
 
-    private Date updatedate;
+    private String updatedate;
 
     private String cancellationtype;
 
@@ -207,14 +207,6 @@ public class OrgBaseInfo implements Serializable {
 
     public void setNumberpeople(Integer numberpeople) {
         this.numberpeople = numberpeople;
-    }
-
-    public Date getEstablishmentdate() {
-        return establishmentdate;
-    }
-
-    public void setEstablishmentdate(Date establishmentdate) {
-        this.establishmentdate = establishmentdate;
     }
 
     public String getCurrency() {
@@ -417,43 +409,51 @@ public class OrgBaseInfo implements Serializable {
         this.finalaccounts = finalaccounts == null ? null : finalaccounts.trim();
     }
 
-    public Date getOperationstartdate() {
-        return operationstartdate;
-    }
-
-    public void setOperationstartdate(Date operationstartdate) {
-        this.operationstartdate = operationstartdate;
-    }
-
-    public Date getOperationenddate() {
-        return operationenddate;
-    }
-
-    public void setOperationenddate(Date operationenddate) {
-        this.operationenddate = operationenddate;
-    }
-
-    public Date getCreationdate() {
-        return creationdate;
-    }
-
-    public void setCreationdate(Date creationdate) {
-        this.creationdate = creationdate;
-    }
-
-    public Date getUpdatedate() {
-        return updatedate;
-    }
-
-    public void setUpdatedate(Date updatedate) {
-        this.updatedate = updatedate;
-    }
-
     public String getCancellationtype() {
         return cancellationtype;
     }
 
     public void setCancellationtype(String cancellationtype) {
         this.cancellationtype = cancellationtype == null ? null : cancellationtype.trim();
+    }
+
+    public String getEstablishmentdate() {
+        return establishmentdate;
+    }
+
+    public void setEstablishmentdate(String establishmentdate) {
+        this.establishmentdate = establishmentdate;
+    }
+
+    public String getOperationstartdate() {
+        return operationstartdate;
+    }
+
+    public void setOperationstartdate(String operationstartdate) {
+        this.operationstartdate = operationstartdate;
+    }
+
+    public String getOperationenddate() {
+        return operationenddate;
+    }
+
+    public void setOperationenddate(String operationenddate) {
+        this.operationenddate = operationenddate;
+    }
+
+    public String getCreationdate() {
+        return creationdate;
+    }
+
+    public void setCreationdate(String creationdate) {
+        this.creationdate = creationdate;
+    }
+
+    public String getUpdatedate() {
+        return updatedate;
+    }
+
+    public void setUpdatedate(String updatedate) {
+        this.updatedate = updatedate;
     }
 }

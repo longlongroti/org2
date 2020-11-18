@@ -1,5 +1,7 @@
 package com.shanxi.coal.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shanxi.coal.dao.OrgBaseInfoMapper;
@@ -8,16 +10,24 @@ import com.shanxi.coal.dao.SysLogMapper;
 import com.shanxi.coal.domain.*;
 import com.shanxi.coal.enums.AuditRoleEnum;
 import com.shanxi.coal.utils.MyUtils;
+import liquibase.util.MD5Util;
 import liquibase.util.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/orgbase")
@@ -148,12 +158,6 @@ public class OrgBaseController {
         List<OrgDict> ssdzDict = orgDictMapper.findByName("所属大洲");
         model.addAttribute("ssdzDict", ssdzDict);
 
-        List<OrgDict> ssgjDict = orgDictMapper.findByName("所属国家");
-        model.addAttribute("ssgjDict", ssgjDict);
-
-        List<OrgDict> jwcsDict = orgDictMapper.findByName("境外城市");
-        model.addAttribute("jwcsDict", jwcsDict);
-
         List<OrgDict> sshyDict = orgDictMapper.findByName("所属行业");
         model.addAttribute("sshyDict", sshyDict);
 
@@ -176,5 +180,133 @@ public class OrgBaseController {
         model.addAttribute("orgBaseInfo", orgBaseInfo);
 
         return "system/user/add";
+    }
+
+    @PostMapping("/do")
+    @Transactional
+    public String add(HttpServletRequest request, OrgBaseInfo orgBaseInfo) {
+
+
+        if (orgBaseInfo != null) {
+            orgBaseInfo.setId(UUID.randomUUID().toString());
+
+            orgBaseInfoMapper.insertSelective(orgBaseInfo);
+
+        }
+
+
+        return "redirect:/orgbase/go";
+    }
+
+
+    @GetMapping("/findPid")
+    @ResponseBody
+    public String findPid(HttpServletRequest request,String id){
+
+        String json = "";
+
+        List<OrgDict> list = orgDictMapper.findByPid(id);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            json = objectMapper.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+
+    @GetMapping("/findTree")
+    @ResponseBody
+    public String findTree(HttpServletRequest request,@RequestParam(value = "dicvalue", required = false) String name){
+
+        List<OrgDict> list = new ArrayList<>();
+
+        if (StringUtils.isNotEmpty(name)) {
+            OrgDict orgDict = new OrgDict();
+            orgDict.setDicvalue(name);
+            List<OrgDict> orgDicts = orgDictMapper.findByValue(orgDict);
+
+            List<OrgDict> sysCodes1 = new ArrayList<>();
+            for (OrgDict code : orgDicts) {
+                List<OrgDict> dl = getParent(code.getId());
+                sysCodes1.addAll(dl);
+            }
+
+            List<OrgDict> uniqueOrg = MyUtils.removeDuplicate(sysCodes1);
+            list = buildTree(uniqueOrg);
+
+        } else {
+            OrgDict orgDict = orgDictMapper.findRoot();
+            if (orgDict == null) {
+                return null;
+            }
+            List<OrgDict> dl = new ArrayList<>();
+            orgDict.setText(orgDict.getDicvalue());
+            orgDict.setNodes(dl);
+            list.add(orgDict);
+        }
+
+        return MyUtils.listToJson(list);
+    }
+
+    @PostMapping("/getByParent")
+    @ResponseBody
+    public String list(@RequestParam("parentId") String parentId, HttpServletRequest request, HttpSession session, Model model) {
+        List<OrgDict> orgDicts = orgDictMapper.findByPid(parentId);
+        for (OrgDict hy : orgDicts) {
+            List<OrgDict> dl = new ArrayList<>();
+            hy.setText(hy.getDicvalue());
+            hy.setNodes(dl);
+        }
+        return MyUtils.listToJson(orgDicts);
+    }
+
+    public List<OrgDict> getParent(String pid){
+        List<OrgDict> dl = new ArrayList<>();
+        OrgDict code = orgDictMapper.selectByPrimaryKey(pid);
+        if (code != null) {
+            List<OrgDict> parent = getParent(code.getpId());
+            dl.addAll(parent);
+        }
+        dl.add(code);
+        return dl;
+    }
+
+    private List<OrgDict> buildTree(List<OrgDict> dl) {
+        OrgDict parent = new OrgDict();
+        List<OrgDict> list = new ArrayList<>();
+        for (OrgDict sysCode : dl) {
+            if (sysCode != null && sysCode.getpId().equals("0")) {
+                List<OrgDict> dd = getChildren(sysCode.getId(), dl);
+                parent.setId(sysCode.getId());
+                parent.setText(sysCode.getDicvalue());
+                parent.setNodes(dd);
+                break;
+            }
+        }
+        list.add(parent);
+        return list;
+    }
+
+    private List<OrgDict> getChildren(String uuid, List<OrgDict> dl) {
+        List<OrgDict> dll = new ArrayList<>();
+        List<OrgDict> child = new ArrayList<>();
+        for (OrgDict s : dl) {
+            if (s != null && s.getId().equals(uuid)) {
+                child.add(s);
+            }
+        }
+        for (OrgDict ss : child) {
+            List<OrgDict> chls = getChildren(ss.getId(), dl);
+            if (!chls.isEmpty()) {
+                ss.setNodes(chls);
+            }
+            ss.setId(ss.getId());
+            ss.setText(ss.getDicvalue());
+            dll.add(ss);
+        }
+        return dll;
     }
 }

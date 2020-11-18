@@ -18,4 +18,10 @@ public interface OrgDictMapper {
     int updateByPrimaryKey(OrgDict record);
 
     List<OrgDict> findByName(String name);
+
+    List<OrgDict> findByPid(String pid);
+
+    OrgDict findRoot();
+
+    List<OrgDict> findByValue(OrgDict record);
 }

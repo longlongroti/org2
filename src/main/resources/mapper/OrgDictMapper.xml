@@ -87,4 +87,30 @@
     where dicname = #{dicname,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_dict
+    where  p_id = #{pId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findRoot" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_dict
+    where  p_id = '0' and dicname = '所属行业'
+  </select>
+
+  <select id="findByValue" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_dict
+    <where>
+            <if test="dicvalue != null">
+              and dicvalue LIKE concat(concat('%',#{dicvalue,jdbcType=VARCHAR}),'%')
+            </if>
+    </where>
+
+  </select>
+
 </mapper>

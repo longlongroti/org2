@@ -1,6 +1,7 @@
 package com.shanxi.coal.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrgDict implements Serializable {
     private String id;
@@ -10,6 +11,26 @@ public class OrgDict implements Serializable {
     private String dicvalue;
 
     private String pId;
+
+    private String text;
+
+    private List<OrgDict> nodes;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public List<OrgDict> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<OrgDict> nodes) {
+        this.nodes = nodes;
+    }
 
     private static final long serialVersionUID = 1L;
 

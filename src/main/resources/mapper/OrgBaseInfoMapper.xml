@@ -16,7 +16,7 @@
     <result column="organizationalmid" jdbcType="VARCHAR" property="organizationalmid" />
     <result column="organizationalbigsmal" jdbcType="VARCHAR" property="organizationalbigsmal" />
     <result column="numberpeople" jdbcType="INTEGER" property="numberpeople" />
-    <result column="establishmentdate" jdbcType="DATE" property="establishmentdate" />
+    <result column="establishmentdate" jdbcType="VARCHAR" property="establishmentdate" />
     <result column="currency" jdbcType="VARCHAR" property="currency" />
     <result column="capital" jdbcType="DECIMAL" property="capital" />
     <result column="listed" jdbcType="VARCHAR" property="listed" />
@@ -42,10 +42,10 @@
     <result column="businessstatus" jdbcType="VARCHAR" property="businessstatus" />
     <result column="isplatform" jdbcType="VARCHAR" property="isplatform" />
     <result column="finalaccounts" jdbcType="VARCHAR" property="finalaccounts" />
-    <result column="operationstartdate" jdbcType="DATE" property="operationstartdate" />
-    <result column="operationenddate" jdbcType="DATE" property="operationenddate" />
-    <result column="creationdate" jdbcType="DATE" property="creationdate" />
-    <result column="updatedate" jdbcType="DATE" property="updatedate" />
+    <result column="operationstartdate" jdbcType="VARCHAR" property="operationstartdate" />
+    <result column="operationenddate" jdbcType="VARCHAR" property="operationenddate" />
+    <result column="creationdate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="updatedate" jdbcType="VARCHAR" property="updatedate" />
     <result column="cancellationtype" jdbcType="VARCHAR" property="cancellationtype" />
   </resultMap>
   <sql id="Base_Column_List">
