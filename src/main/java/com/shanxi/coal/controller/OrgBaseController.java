@@ -263,9 +263,9 @@ public class OrgBaseController {
         return MyUtils.listToJson(orgDicts);
     }
 
-    public List<OrgDict> getParent(String pid){
+    public List<OrgDict> getParent(String id){
         List<OrgDict> dl = new ArrayList<>();
-        OrgDict code = orgDictMapper.selectByPrimaryKey(pid);
+        OrgDict code = orgDictMapper.selectByPrimaryKey(id);
         if (code != null) {
             List<OrgDict> parent = getParent(code.getpId());
             dl.addAll(parent);
@@ -294,7 +294,7 @@ public class OrgBaseController {
         List<OrgDict> dll = new ArrayList<>();
         List<OrgDict> child = new ArrayList<>();
         for (OrgDict s : dl) {
-            if (s != null && s.getId().equals(uuid)) {
+            if (s != null && s.getpId().equals(uuid)) {
                 child.add(s);
             }
         }

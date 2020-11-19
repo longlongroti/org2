@@ -130,13 +130,11 @@ public class MyUtils {
         return objectToJson(commonBean);
     }
 
-
     public static String prettyNumber(Integer index) {
         DecimalFormat g1 = new DecimalFormat("0000");
         String startZeroStr = g1.format(index);
         return startZeroStr;
     }
-
 
     public static Color getRandomColor(int red, int green, int blue) {
         return new Color(red, green, blue);
@@ -180,8 +178,6 @@ public class MyUtils {
         }
         return new String(baos.toByteArray(), StandardCharsets.UTF_8);
     }
-
-
 
 
 }
