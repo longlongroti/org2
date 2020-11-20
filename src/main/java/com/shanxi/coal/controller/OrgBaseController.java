@@ -179,7 +179,7 @@ public class OrgBaseController {
         OrgBaseInfo orgBaseInfo = orgBaseInfoMapper.selectByPrimaryKey(id);
         model.addAttribute("orgBaseInfo", orgBaseInfo);
 
-        return "system/user/add";
+        return "org/base/add";
     }
 
     @PostMapping("/do")
@@ -192,12 +192,48 @@ public class OrgBaseController {
 
             orgBaseInfoMapper.insertSelective(orgBaseInfo);
 
+            //层级
+            if(null != orgBaseInfo.getLegallevel()){
+                orgBaseInfo.setLlevel(orgBaseInfo.getLegallevel() - 1);
+            }else{
+                orgBaseInfo.setLlevel(1);
+            }
+
+            //层级
+            if(null != orgBaseInfo.getManagelevel()){
+                orgBaseInfo.setMlevel(orgBaseInfo.getManagelevel() - 1);
+            }else{
+                orgBaseInfo.setMlevel(1);
+            }
+
         }
 
 
         return "redirect:/orgbase/go";
     }
 
+    @PutMapping("/do")
+    @Transactional
+    public String update(OrgBaseInfo orgBaseInfo) {
+
+        //层级
+        if(null != orgBaseInfo.getLegallevel()){
+            orgBaseInfo.setLlevel(orgBaseInfo.getLegallevel() - 1);
+        }else{
+            orgBaseInfo.setLlevel(1);
+        }
+
+        //层级
+        if(null != orgBaseInfo.getManagelevel()){
+            orgBaseInfo.setMlevel(orgBaseInfo.getManagelevel() - 1);
+        }else{
+            orgBaseInfo.setMlevel(1);
+        }
+
+        orgBaseInfoMapper.updateByPrimaryKeySelective(orgBaseInfo);
+
+        return "redirect:/orgbase/go";
+    }
 
     @GetMapping("/findPid")
     @ResponseBody

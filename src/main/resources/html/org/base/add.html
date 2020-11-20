@@ -44,7 +44,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>境内/境外</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="domain" >
+                                        <select class="selectpicker jnwDict" data-live-search="false" name="domain" >
                                             <option th:each="f:${jnwDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -53,7 +53,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>单位类型</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="unittype">
+                                        <select class="selectpicker dwlxDict" data-live-search="false" name="unittype">
                                             <option th:each="f:${dwlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -64,9 +64,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>新增类型</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="newtype">
+                                        <select class="selectpicker xzlxDict" data-live-search="false" name="newtype">
                                             <option th:each="f:${xzlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
-                                                Choose...
                                             </option>
                                         </select>
                                     </div>
@@ -129,14 +128,14 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>组织形式</label>
                                     <div class="col-sm-10">
-                                        <select class="selectpicker" data-live-search="false" id="organizationalbig" name="organizationalbig" onchange="findMid();">
-                                            <option th:each="f:${zzxsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
-                                                Choose...
+                                        <select class="selectpicker zzxsDict" data-live-search="false" id="organizationalbig" name="organizationalbig" onchange="findMid();">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${zzxsDict}" th:text="${f.dicvalue}" th:value="${f.id}">
                                             </option>
                                         </select>
-                                        <select class="selectpicker" data-live-search="false" id="organizationalmid" name="organizationalmid" onchange="findSmal();">
+                                        <select class="selectpicker zzxsDict2" data-live-search="false" id="organizationalmid" name="organizationalmid" onchange="findSmal();">
                                         </select>
-                                        <select class="selectpicker" data-live-search="false" id="organizationalbigsmal" name="organizationalbigsmal">
+                                        <select class="selectpicker zzxsDict3" data-live-search="false" id="organizationalbigsmal" name="organizationalbigsmal">
                                         </select>
                                     </div>
 
@@ -162,7 +161,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" >币种</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="currency">
+                                        <select class="selectpicker bzDict" data-live-search="false" name="currency">
                                             <option th:each="f:${bzDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -182,7 +181,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否上市</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="listed">
+                                        <select class="selectpicker sfssDict" data-live-search="false" name="listed">
                                             <option th:each="f:${sfssDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -191,7 +190,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>空壳公司类别</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="shelltype">
+                                        <select class="selectpicker kkgslbDict" data-live-search="false" name="shelltype">
                                             <option th:each="f:${kkgslbDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -203,7 +202,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>企业类型</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="enterprisetype">
+                                        <select class="selectpicker qylxDict" data-live-search="false" name="enterprisetype">
                                             <option th:each="f:${qylxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
@@ -245,7 +244,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属大洲</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" id="continent" name="continent" onchange="findCountry();">
+                                        <select class="selectpicker ssdzDict" data-live-search="false" id="continent" name="continent" onchange="findCountry();">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${ssdzDict}" th:text="${f.dicvalue}" th:value="${f.id}">
                                                 Choose...
@@ -255,7 +254,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属国家</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" id="country" name="country" onchange="findProvince();">
+                                        <select class="selectpicker country" data-live-search="false" id="country" name="country" onchange="findProvince();">
                                             <option value="0">请选择</option>
                                         </select>
                                     </div>
@@ -264,11 +263,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所在地区</label>
                                     <div class="col-sm-10">
-                                        <select class="selectpicker" data-live-search="false" id="province" name="province" onchange="findCity();">
+                                        <select class="selectpicker province" data-live-search="false" id="province" name="province" onchange="findCity();">
                                         </select>
-                                        <select class="selectpicker" data-live-search="false" id="city" name="city" onchange="findCounty();">
+                                        <select class="selectpicker city" data-live-search="false" id="city" name="city" onchange="findCounty();">
                                         </select>
-                                        <select class="selectpicker" data-live-search="false" id="county" name="county">
+                                        <select class="selectpicker county" data-live-search="false" id="county" name="county">
                                         </select>
                                     </div>
 
@@ -294,8 +293,7 @@
                                         <input id="hdsuperiorholdingunit" type="hidden">
                                         <input class="form-control" id="superiorholdingunit" name="superiorholdingunit" placeholder="上级控股单位"
                                                th:placeholder="上级控股单位"
-                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiorholdingunit}" type="text">
-
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiorholdingunit}" type="text" readonly="readonly">
                                     </div>
 
                                     <label class="col-sm-2 col-form-label my-font-bold" >本单位法人层级</label>
@@ -336,7 +334,7 @@
                                     <div class="col-sm-4">
                                         <input class="form-control" id="managelevel" name="managelevel" placeholder="本单位管理层级"
                                                th:placeholder="本单位管理层级"
-                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.managelevel}" type="text">
+                                               th:value="${orgBaseInfo!=null}?${orgBaseInfo.managelevel}" type="text" readonly="readonly">
                                     </div>
                                 </div>
 
@@ -349,7 +347,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>所属行业</label>
                                     <div class="col-sm-10">
-                                        <textarea cols="120" rows="5" id="industry" name="industry"></textarea>
+                                        <textarea cols="120" rows="5" id="industry" name="industry" th:text="${orgBaseInfo!=null}?${orgBaseInfo.industry}"></textarea>
                                     </div>
 
                                 </div>
@@ -357,7 +355,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>经营范围</label>
                                     <div class="col-sm-10">
-                                        <textarea cols="120" rows="5" name="businessscope"></textarea>
+                                        <textarea cols="120" rows="5" id="businessscope" name="businessscope" th:text="${orgBaseInfo!=null}?${orgBaseInfo.businessscope}"></textarea>
                                     </div>
 
                                 </div>
@@ -365,7 +363,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" >经营规模</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="businessscale">
+                                        <select class="selectpicker jygmDict" data-live-search="false" name="businessscale">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${jygmDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
@@ -375,7 +373,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold" >经营状态</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="businessstatus">
+                                        <select class="selectpicker jyztDict" data-live-search="false" name="businessstatus">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${jyztDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
@@ -387,7 +385,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" >是否平台公司</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="isplatform">
+                                        <select class="selectpicker sfptgsDict" data-live-search="false" name="isplatform">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${sfptgsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
@@ -397,7 +395,7 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>是否纳入决算</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="finalaccounts">
+                                        <select class="selectpicker sfnrjsDict" data-live-search="false" name="finalaccounts">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${sfnrjsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
@@ -443,7 +441,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" >注销类型</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker" data-live-search="false" name="cancellationtype">
+                                        <select class="selectpicker zxlxDict" data-live-search="false" name="cancellationtype">
                                             <option value="0">请选择</option>
                                             <option th:each="f:${zxlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
@@ -494,8 +492,51 @@
 
 <script th:inline="javascript">
 
+
+    $(function(){
+        let obj = [[${orgBaseInfo}]];
+
+        $('.jnwDict').selectpicker('val', obj.domain);
+        $('.dwlxDict').selectpicker('val', obj.unittype);
+        $('.xzlxDict').selectpicker('val', obj.newtype);
+
+        $('.zzxsDict').selectpicker('val', obj.organizationalbig);
+        findMid();
+
+        $('.zzxsDict2').selectpicker('val', obj.organizationalmid);
+
+        findSmal();
+        $('.zzxsDict3').selectpicker('val', obj.organizationalbigsmal);
+
+        $('.bzDict').selectpicker('val', obj.currency);
+        $('.sfssDict').selectpicker('val', obj.listed);
+        $('.kkgslbDict').selectpicker('val', obj.shelltype);
+        $('.qylxDict').selectpicker('val', obj.enterprisetype);
+        $('.ssdzDict').selectpicker('val', obj.continent);
+
+        findCountry();
+        $('.country').selectpicker('val', obj.country);
+
+        findProvince();
+        $('.province').selectpicker('val', obj.province);
+
+        findCity();
+        $('.city').selectpicker('val', obj.city);
+
+        findCounty();
+        $('.county').selectpicker('val', obj.county);
+
+        $('.jygmDict').selectpicker('val', obj.businessscale);
+        $('.jyztDict').selectpicker('val', obj.businessstatus);
+        $('.sfptgsDict').selectpicker('val', obj.isplatform);
+        $('.sfnrjsDict').selectpicker('val', obj.finalaccounts);
+        $('.zxlxDict').selectpicker('val', obj.cancellationtype);
+
+    });
+
     function findMid(){
         var id = $("#organizationalbig").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
                 //清空
@@ -516,6 +557,7 @@
     function findSmal(){
 
         var id = $("#organizationalmid").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
                 $("#organizationalbigsmal").empty();
@@ -531,6 +573,7 @@
 
     function findCountry(){
         var id = $("#continent").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
 
@@ -555,6 +598,7 @@
 
     function findProvince(){
         var id = $("#country").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
 
@@ -576,6 +620,7 @@
 
     function findCity(){
         var id = $("#province").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
 
@@ -595,6 +640,7 @@
 
     function findCounty(){
         var id = $("#city").val();
+        $.ajaxSettings.async = false;
         $.get("findPid", {id: id},
             function(data){
                 $("#county").empty();
@@ -619,6 +665,7 @@
             content: $('#sjSelectionBox'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
             btn: ['保存', '关闭'],
             yes: function (index, layero) {
+                $('#legallevel').val(selectLevel);
                 $('#hdsuperiorholdingunit').val(selectionIds);
                 $('#superiorholdingunit').val(selectionNames);
                 //按钮【提交】的回调
@@ -665,9 +712,21 @@
             content: $('#treeSelectionBox'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
             btn: ['保存', '关闭'],
             yes: function (index, layero) {
-               // $('#hdsuperiormanagementunit').val(sselectionIds);
-               // $('#superiormanagementunit').val(sselectionNames);
-                //按钮【提交】的回调
+                let a = $('#tree').treeview('getChecked');
+                if (!a || a.length > 5) {
+                    layer.alert('<em style=\'color:red\'>行业最多选择5个！<em>')
+                    return;
+                }
+                let hangye = '';
+                for (let i = 0; i < a.length; i++) {
+                    if(i==a.length-1){
+                        hangye += a[i].text;
+                    }else{
+                        hangye += a[i].text + ',';
+                    }
+                }
+                $('#industry').val(hangye);
+
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
             },
             btn2: function (index, layero) {
@@ -704,6 +763,7 @@
         <script type="text/javascript">
             var selectionIds = [];  //保存选中ids
             var selectionNames = [];
+            var selectLevel=[];
 
             function createTable() {
                 let url = '[[@{/orgbase/list}]]'
@@ -752,6 +812,7 @@
                 $("#table").on('check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table', function (e, list) {
                     selectionIds = list.id;
                     selectionNames = list.unitname;
+                    selectLevel = list.legallevel;
                 });
 
                 //表格分页之前处理多选框数据
@@ -948,14 +1009,12 @@
                 showIcon: true,
                 levels: 8,
                 expandIcon: "fa fa-plus",
+                showCheckbox: true,
+                multiSelect: true,
                 data: data,
                 showTags: true,
-                onNodeSelected: function (event, data) {
-
-                },
-                onNodeUnselected: function (event, data) {
-
-                }
+                onNodeChecked: nodeChecked,
+                onNodeUnchecked: nodeUnchecked
             });
         }
 

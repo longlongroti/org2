@@ -18,7 +18,7 @@
     <result column="numberpeople" jdbcType="INTEGER" property="numberpeople" />
     <result column="establishmentdate" jdbcType="VARCHAR" property="establishmentdate" />
     <result column="currency" jdbcType="VARCHAR" property="currency" />
-    <result column="capital" jdbcType="DECIMAL" property="capital" />
+    <result column="capital" jdbcType="VARCHAR" property="capital" />
     <result column="listed" jdbcType="VARCHAR" property="listed" />
     <result column="shelltype" jdbcType="VARCHAR" property="shelltype" />
     <result column="enterprisetype" jdbcType="VARCHAR" property="enterprisetype" />
@@ -90,7 +90,7 @@
       #{englishabbreviation,jdbcType=VARCHAR}, #{organizationalbig,jdbcType=VARCHAR}, 
       #{organizationalmid,jdbcType=VARCHAR}, #{organizationalbigsmal,jdbcType=VARCHAR}, 
       #{numberpeople,jdbcType=INTEGER}, #{establishmentdate,jdbcType=DATE}, #{currency,jdbcType=VARCHAR}, 
-      #{capital,jdbcType=DECIMAL}, #{listed,jdbcType=CHAR}, #{shelltype,jdbcType=VARCHAR}, 
+      #{capital,jdbcType=VARCHAR}, #{listed,jdbcType=CHAR}, #{shelltype,jdbcType=VARCHAR},
       #{enterprisetype,jdbcType=VARCHAR}, #{legal,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{continent,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
@@ -290,7 +290,7 @@
         #{currency,jdbcType=VARCHAR},
       </if>
       <if test="capital != null">
-        #{capital,jdbcType=DECIMAL},
+        #{capital,jdbcType=VARCHAR},
       </if>
       <if test="listed != null">
         #{listed,jdbcType=CHAR},
@@ -427,7 +427,7 @@
         currency = #{currency,jdbcType=VARCHAR},
       </if>
       <if test="capital != null">
-        capital = #{capital,jdbcType=DECIMAL},
+        capital = #{capital,jdbcType=VARCHAR},
       </if>
       <if test="listed != null">
         listed = #{listed,jdbcType=CHAR},
@@ -533,7 +533,7 @@
       numberpeople = #{numberpeople,jdbcType=INTEGER},
       establishmentdate = #{establishmentdate,jdbcType=DATE},
       currency = #{currency,jdbcType=VARCHAR},
-      capital = #{capital,jdbcType=DECIMAL},
+      capital = #{capital,jdbcType=VARCHAR},
       listed = #{listed,jdbcType=CHAR},
       shelltype = #{shelltype,jdbcType=VARCHAR},
       enterprisetype = #{enterprisetype,jdbcType=VARCHAR},
@@ -567,11 +567,11 @@
   
   <select id="list" resultType="com.shanxi.coal.domain.OrgBaseInfo">
     select * from org_base_info
-    <where>
+<!--    <where>-->
 <!--      <if test="userName != null">-->
 <!--        and user_name LIKE concat(concat('%',#{userName,jdbcType=VARCHAR}),'%')-->
 <!--      </if>-->
-    </where>
+<!--    </where>-->
 
   </select>
 </mapper>

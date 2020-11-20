@@ -37,7 +37,7 @@ public class OrgBaseInfo implements Serializable {
 
     private String currency;
 
-    private BigDecimal capital;
+    private String capital;
 
     private String listed;
 
@@ -66,12 +66,16 @@ public class OrgBaseInfo implements Serializable {
     private String superiorholdingunit;
 
     private Integer legallevel;
+    //法人本层级，为上级法人-1，上级法人层级为空，则1级
+    private Integer llevel;
 
     private Integer holdingratio;
 
     private String superiormanagementunit;
 
     private Integer managelevel;
+    //管理本层级，为上管理人-1，上级管理人层级为空，则1级
+    private Integer mlevel;
 
     private String industry;
 
@@ -217,11 +221,11 @@ public class OrgBaseInfo implements Serializable {
         this.currency = currency == null ? null : currency.trim();
     }
 
-    public BigDecimal getCapital() {
+    public String getCapital() {
         return capital;
     }
 
-    public void setCapital(BigDecimal capital) {
+    public void setCapital(String capital) {
         this.capital = capital;
     }
 
@@ -455,5 +459,21 @@ public class OrgBaseInfo implements Serializable {
 
     public void setUpdatedate(String updatedate) {
         this.updatedate = updatedate;
+    }
+
+    public Integer getLlevel() {
+        return llevel;
+    }
+
+    public void setLlevel(Integer llevel) {
+        this.llevel = llevel;
+    }
+
+    public Integer getMlevel() {
+        return mlevel;
+    }
+
+    public void setMlevel(Integer mlevel) {
+        this.mlevel = mlevel;
     }
 }
