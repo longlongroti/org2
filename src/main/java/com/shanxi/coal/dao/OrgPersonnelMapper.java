@@ -2,6 +2,8 @@ package com.shanxi.coal.dao;
 
 import com.shanxi.coal.domain.OrgPersonnel;
 
+import java.util.List;
+
 public interface OrgPersonnelMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,6 @@ public interface OrgPersonnelMapper {
     int updateByPrimaryKeySelective(OrgPersonnel record);
 
     int updateByPrimaryKey(OrgPersonnel record);
+
+    List<OrgPersonnel> list(OrgPersonnel record);
 }

@@ -211,6 +211,29 @@
         }
     };
 
+    let commonNoAction = {
+        delNoAction: function (id, url, redirect, pop) {
+            $('#' + pop).modal("show");
+            $("#confirmDelete").click(function () {
+                $.ajax({
+                    url: url,
+                    data: 'id=' + id,
+                    type: "post",
+                    success: function (data) {
+                        if (!redirect) {
+                            return;
+                        }
+                        if (typeof redirect == 'function') {
+                            redirect();
+                        } else {
+                            location.href = redirect
+                        }
+                    }
+                });
+                $('#' + pop).modal("hide");
+            });
+        }
+    };
     /**
      * 发送AJAX请求
      * doService.doService("/contract/queryMaxNo", "year",2019, "month",12,...)

@@ -101,4 +101,11 @@
       org_id = #{orgId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="list" resultType="com.shanxi.coal.domain.OrgPersonnel">
+    select
+    <include refid="Base_Column_List" />
+    from org_personnel
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </select>
 </mapper>

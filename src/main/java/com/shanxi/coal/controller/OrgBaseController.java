@@ -9,6 +9,7 @@ import com.shanxi.coal.dao.OrgDictMapper;
 import com.shanxi.coal.dao.SysLogMapper;
 import com.shanxi.coal.domain.*;
 import com.shanxi.coal.enums.AuditRoleEnum;
+import com.shanxi.coal.enums.MyDelEnum;
 import com.shanxi.coal.utils.MyUtils;
 import liquibase.util.MD5Util;
 import liquibase.util.StringUtils;
@@ -235,6 +236,13 @@ public class OrgBaseController {
         return "redirect:/orgbase/go";
     }
 
+    @PostMapping("/delete")
+    @ResponseBody
+    public String delete(@RequestParam("id") String id) {
+        orgBaseInfoMapper.deleteByPrimaryKey(id);
+        return "ok";
+    }
+
     @GetMapping("/findPid")
     @ResponseBody
     public String findPid(HttpServletRequest request,String id){
@@ -251,7 +259,6 @@ public class OrgBaseController {
 
         return json;
     }
-
 
     @GetMapping("/findTree")
     @ResponseBody

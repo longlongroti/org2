@@ -29,11 +29,9 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>搜索</h5>
+                    <h5>企业基础信息</h5>
                     <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
+                        <a href="javascript:history.back(-1)">返回</a>
                     </div>
                 </div>
                 <div class="ibox-content ">
@@ -42,17 +40,17 @@
                             <div class="col-sm-10 mt-4">
                                 <label class="col-sm-2 my-font-bold">单位名称</label>
                                 <div class="col-sm-2">
-                                    <input id="unitname" name="unitname" type="text" class="form-control required">
+                                    [[${orgBaseInfo.unitname}]]
                                 </div>
 
                                 <label class="col-sm-2 my-font-bold">境内外标志</label>
                                 <div class="col-sm-2">
-                                    <input id="domain" name="domain" type="text" class="form-control required">
+                                    [[${orgBaseInfo.domain}]]
                                 </div>
 
                                 <label class="col-sm-2 my-font-bold">单位类型</label>
                                 <div class="col-sm-2">
-                                    <input id="unittype" name="unittype" type="text" class="form-control required">
+                                    [[${orgBaseInfo.unittype}]]
                                 </div>
                             </div>
 
@@ -60,50 +58,6 @@
                     </div>
                     <div class="row">
                         <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-10 mt-4">
-                                <label class="col-sm-2 my-font-bold">企业类型</label>
-                                <div class="col-sm-2">
-                                    <input id="enterprisetype" name="enterprisetype" type="text" class="form-control required">
-                                </div>
-
-                                <label class="col-sm-2 my-font-bold">上报状态</label>
-                                <div class="col-sm-2">
-                                    <input id="state" name="state" type="text" class="form-control required">
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-10 mt-4">
-                                <label class="col-sm-2 my-font-bold">新增类型</label>
-                                <div class="col-sm-2">
-                                    <input id="newtype" name="newtype" type="text" class="form-control required">
-                                </div>
-
-                                <label class="col-sm-2 my-font-bold">注销类型</label>
-                                <div class="col-sm-2">
-                                    <input id="cancellationtype" name="cancellationtype" type="text" class="form-control required">
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-sm-2">
-                                <div class="form-group text-right">
-                                    <button  class="btn btn-success" type="button" onclick="createTable()">查询</button>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -114,7 +68,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>企业基本信息</h5>
+                    <h5>股权结构信息</h5>
                 </div>
                 <div class="ibox-content">
                     <a class="btn btn-warning  btn-sm badge-pill mb-1" href="javascript:goAdd()"><i
@@ -147,7 +101,8 @@
     }
 
     function createTable() {
-        let url = '[[@{/orgbase/list}]]'
+        let url = '[[@{/particip/list}]]'
+        let orgId = '[[${orgBaseInfo.id}]]'
         $("#table").bootstrapTable('destroy');
         $("#table").bootstrapTable({
             url: url,        //请求后台的URL（*）
@@ -163,30 +118,27 @@
                 var param = {
                     pageNumber: params.pageNumber,
                     pageSize: params.pageSize,
-                    //name: $('#name').val(),
+                    orgId:orgId
                 };
                 return param;
             },
             sidePagination: 'server',
             pageNumber: 1,
             columns: [{
-                field: "uuid",
+                field: "id",
                 visible: false
             }, {
-                field: "unitname",
+                field: "enterprisename",
                 title: "单位名称"
             }, {
-                field: "creditcode",
-                title: "企业编码"
-            }, {
-                field: "englishname",
-                title: "境内外标志"
-            }, {
-                field: "establishmentdate",
+                field: "enterprisetype",
                 title: "单位类型"
             }, {
-                field: "legal",
-                title: "企业类型"
+                field: "region",
+                title: "境内/境外"
+            }, {
+                field: "shareholding",
+                title: "参股比例%"
             }, {
                 field: "cz",
                 title: "操作",
@@ -194,13 +146,7 @@
                 formatter: function (value, row) {
                     var editHtml = '<a href="javascript:;" class="btn btn-success edit"><i class="fa fa-pencil"> </i> 编辑</a>&nbsp;';
                     var delHtml = '<a href="javascript:;" class="btn btn-danger del"><i class="fa fa-trash"> </i> 删除</a>&nbsp;';
-                    var checkHtml = '<a href="javascript:;" class="btn btn-primary check"><i class="fa fa-eye"></i> 查看详细</a>&nbsp;';
-
-                    var gqhtml = '<a href="javascript:;" class="btn btn-info audit"><i class="fa fa-send"> </i> 股权结构信息</a>&nbsp;';
-                    var ryhtml = '<a href="javascript:;" class="btn btn-info pepo"><i class="fa fa-server"> </i> 人员信息</a>&nbsp;';
-                    var qyhtml = '<a href="javascript:;" class="btn btn-info ent"><i class="fa fa-question"> </i> 参股企业信息</a>&nbsp;';
-
-                    var buttonhtml = editHtml+delHtml+checkHtml+gqhtml+ryhtml+qyhtml;
+                    var buttonhtml = editHtml+delHtml;
                     return buttonhtml;
                 },
                 events: {
@@ -228,21 +174,9 @@
 
                     'click .audit': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{'/stock/go?id='}]]';
-                        location.href = url+id;
+                        location.href = 'goedit?id=' + id;
                     },
 
-                    'click .pepo': function (e, value, row, index) {
-                        var id = row.id;
-                        url = '[[@{'/personnel/go?id='}]]';
-                        location.href = url+id;
-                    },
-
-                    'click .ent': function (e, value, row, index) {
-                        var id = row.id;
-                        url = '[[@{'/particip/go?id='}]]';
-                        location.href = url+id;
-                    }
                 }
                 }]
         });
@@ -250,7 +184,9 @@
 
 
     function goAdd() {
-        location.href = '[[@{/orgbase/goadd}]]';
+        let url = '[[@{/particip/goadd}]]';
+        let orgId = '[[${orgBaseInfo.id}]]';
+        location.href = url + "?orgId=" +orgId;
     }
 </script>
 </body>
