@@ -52,9 +52,9 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>股东国别</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker gdgbDict" data-live-search="nationality" name="nationality">
+                                        <select class="selectpicker gdgbDict" data-live-search="false" name="nationality">
+                                            <option value="0">请选择</option>
                                             <option th:each="f:${gdgbDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
-                                                Choose...
                                             </option>
                                         </select>
                                     </div>
@@ -64,6 +64,7 @@
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>股东性质</label>
                                     <div class="col-sm-4">
                                         <select class="selectpicker gdxzDict" data-live-search="false" name="nature">
+                                            <option value="0">请选择</option>
                                             <option th:each="f:${gdxzDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                             </option>
                                         </select>
@@ -72,6 +73,7 @@
                                     <label class="col-sm-2 col-form-label my-font-bold" >股东组织形式</label>
                                     <div class="col-sm-4">
                                         <select class="selectpicker gdzzxsDict" data-live-search="false" name="organization">
+                                            <option value="0">请选择</option>
                                             <option th:each="f:${gdzzxsDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                             </option>
                                         </select>
@@ -94,7 +96,7 @@
                                         <button class="btn btn-primary btn-sm badge-pill fa fa-save" type="submit">
                                             保存
                                         </button>
-                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button">
+                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button" onclick="javascript:history.back(-1)">
                                             取消
                                         </button>
                                     </div>
@@ -129,6 +131,11 @@
 
 <script th:inline="javascript">
 
+    let obj = [[${orgStock}]];
+
+    $('.gdgbDict').selectpicker('val', obj.nationality);
+    $('.gdxzDict').selectpicker('val', obj.nature);
+    $('.gdzzxsDict').selectpicker('val', obj.organization);
 
 
 

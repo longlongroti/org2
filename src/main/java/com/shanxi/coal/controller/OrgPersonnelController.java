@@ -62,14 +62,8 @@ public class OrgPersonnelController {
     @GetMapping("/goadd")
     public String goAdd(HttpServletRequest request,Model model) {
 
-        List<OrgDict> gdgbDict = orgDictMapper.findByName("股东国别");
-        model.addAttribute("gdgbDict", gdgbDict);
-
-        List<OrgDict> gdxzDict = orgDictMapper.findByName("股东性质");
-        model.addAttribute("gdxzDict", gdxzDict);
-
-        List<OrgDict> gdzzxsDict = orgDictMapper.findByName("股东组织形式");
-        model.addAttribute("gdzzxsDict", gdzzxsDict);
+        List<OrgDict> sffrDict = orgDictMapper.findByName("是否法人代表");
+        model.addAttribute("sffrDict", sffrDict);
 
         String orgId =  request.getParameter("orgId");
         model.addAttribute("orgId",orgId);
@@ -80,14 +74,8 @@ public class OrgPersonnelController {
     @GetMapping("/goedit")
     public String goEdit(@PathParam("id") String id,HttpServletRequest request, Model model) {
 
-        List<OrgDict> gdgbDict = orgDictMapper.findByName("股东国别");
-        model.addAttribute("gdgbDict", gdgbDict);
-
-        List<OrgDict> gdxzDict = orgDictMapper.findByName("股东性质");
-        model.addAttribute("gdxzDict", gdxzDict);
-
-        List<OrgDict> gdzzxsDict = orgDictMapper.findByName("股东组织形式");
-        model.addAttribute("gdzzxsDict", gdzzxsDict);
+        List<OrgDict> sffrDict = orgDictMapper.findByName("是否法人代表");
+        model.addAttribute("sffrDict", sffrDict);
 
         OrgPersonnel orgPersonnel = orgPersonnelMapper.selectByPrimaryKey(id);
         model.addAttribute("orgPersonnel", orgPersonnel);

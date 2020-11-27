@@ -65,7 +65,7 @@ public class OrgStockController {
     @GetMapping("/goadd")
     public String goAdd(HttpServletRequest request,Model model) {
 
-        List<OrgDict> gdgbDict = orgDictMapper.findByName("股东国别");
+        List<OrgDict> gdgbDict = orgDictMapper.findByName("所属国家");
         model.addAttribute("gdgbDict", gdgbDict);
 
         List<OrgDict> gdxzDict = orgDictMapper.findByName("股东性质");
@@ -83,7 +83,7 @@ public class OrgStockController {
     @GetMapping("/goedit")
     public String goEdit(@PathParam("id") String id,HttpServletRequest request, Model model) {
 
-        List<OrgDict> gdgbDict = orgDictMapper.findByName("股东国别");
+        List<OrgDict> gdgbDict = orgDictMapper.findByName("所属国家");
         model.addAttribute("gdgbDict", gdgbDict);
 
         List<OrgDict> gdxzDict = orgDictMapper.findByName("股东性质");

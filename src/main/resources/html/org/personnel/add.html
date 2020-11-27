@@ -29,7 +29,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5 class="col-sm-10 padding-top-10">[[${orgStock!=null}?人员编辑:人员新增]]</h5>
+                    <h5 class="col-sm-10 padding-top-10">[[${orgPersonnel!=null}?人员编辑:人员新增]]</h5>
                     <div class="col-sm-2 text-right"><a href="javascript:history.back(-1)">返回</a></div>
                 </div>
 
@@ -47,7 +47,7 @@
                                     <div class="col-sm-4">
                                         <input class="form-control" id="contactsname" name="contactsname" placeholder="联系人姓名"
                                                th:placeholder="股东名称"
-                                               th:value="${orgPersonnel!=null}?${orgPersonnel.shareholdername}" type="text">
+                                               th:value="${orgPersonnel!=null}?${orgPersonnel.contactsname}" type="text">
                                     </div>
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>企业联系人电话</label>
@@ -71,6 +71,7 @@
                                     <label class="col-sm-2 col-form-label my-font-bold" >是否法人代表</label>
                                     <div class="col-sm-4">
                                         <select class="selectpicker sffrDict" data-live-search="false" name="islegal">
+                                            <option value="0">请选择</option>
                                             <option th:each="f:${sffrDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                             </option>
                                         </select>
@@ -82,7 +83,7 @@
                                         <button class="btn btn-primary btn-sm badge-pill fa fa-save" type="submit">
                                             保存
                                         </button>
-                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button">
+                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button" onclick="javascript:history.back(-1)">
                                             取消
                                         </button>
                                     </div>
@@ -116,9 +117,9 @@
 
 
 <script th:inline="javascript">
+    let obj = [[${orgPersonnel}]];
 
-
-
+    $('.sffrDict').selectpicker('val', obj.islegal);
 
 </script>
 

@@ -52,8 +52,9 @@
 
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>单位类别</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker dwlbDict" data-live-search="enterprisetype" name="enterprisetype">
-                                            <option th:each="f:${dwlbDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                        <select class="selectpicker dwlxDict" data-live-search="false" name="enterprisetype">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${dwlxDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                                 Choose...
                                             </option>
                                         </select>
@@ -63,8 +64,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold"><span style="color:red;">*</span>境内/境外</label>
                                     <div class="col-sm-4">
-                                        <select class="selectpicker jnjwDict" data-live-search="false" name="region">
-                                            <option th:each="f:${jnjwDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
+                                        <select class="selectpicker jnwDict" data-live-search="false" name="region">
+                                            <option value="0">请选择</option>
+                                            <option th:each="f:${jnwDict}" th:text="${f.dicvalue}" th:value="${f.dicvalue}">
                                             </option>
                                         </select>
                                     </div>
@@ -83,7 +85,7 @@
                                         <button class="btn btn-primary btn-sm badge-pill fa fa-save" type="submit">
                                             保存
                                         </button>
-                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button">
+                                        <button class="btn btn-sm badge-pill fa fa-delicious" type="button" onclick="javascript:history.back(-1)">
                                             取消
                                         </button>
                                     </div>
@@ -118,7 +120,12 @@
 
 <script th:inline="javascript">
 
+    $(function(){
+        let obj = [[${orgParticipation}]];
 
+        $('.jnwDict').selectpicker('val', obj.region);
+        $('.dwlxDict').selectpicker('val', obj.enterprisetype);
+    })
 
 
 </script>

@@ -62,6 +62,12 @@ public class OrgParticiController {
     @GetMapping("/goadd")
     public String goAdd(HttpServletRequest request,Model model) {
 
+        List<OrgDict> jnwDict = orgDictMapper.findByName("境内外");
+        model.addAttribute("jnwDict", jnwDict);
+
+        List<OrgDict> dwlxDict = orgDictMapper.findByName("单位类型");
+        model.addAttribute("dwlxDict", dwlxDict);
+
         String orgId =  request.getParameter("orgId");
         model.addAttribute("orgId",orgId);
         return "org/particip/add";
@@ -70,7 +76,11 @@ public class OrgParticiController {
 
     @GetMapping("/goedit")
     public String goEdit(@PathParam("id") String id,HttpServletRequest request, Model model) {
+        List<OrgDict> jnwDict = orgDictMapper.findByName("境内外");
+        model.addAttribute("jnwDict", jnwDict);
 
+        List<OrgDict> dwlxDict = orgDictMapper.findByName("单位类型");
+        model.addAttribute("dwlxDict", dwlxDict);
 
         OrgParticipation orgParticipation = orgParticipationMapper.selectByPrimaryKey(id);
         model.addAttribute("orgParticipation", orgParticipation);
