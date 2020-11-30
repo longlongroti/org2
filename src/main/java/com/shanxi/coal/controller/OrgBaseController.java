@@ -1,11 +1,15 @@
 package com.shanxi.coal.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.afterturn.easypoi.handler.inter.IExcelExportServer;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +39,7 @@ import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -52,7 +54,6 @@ public class OrgBaseController {
     OrgPersonnelMapper orgPersonnelMapper;
     @Resource
     OrgParticipationMapper orgParticipationMapper;
-
 
     @Resource
     OrgDictMapper orgDictMapper;
@@ -341,5 +342,22 @@ public class OrgBaseController {
         writeSheet = EasyExcel.writerSheet(3, "参股企业信息").head(OrgParticipation.class).build();
         excelWriter.write(orgParticipations, writeSheet);
         excelWriter.finish();
+    }
+
+    @PostMapping(value = "/importExcel.xlsx")
+    public @ResponseBody
+    String importPicFile1(@RequestParam MultipartFile file, HttpServletRequest request) {
+        List<OrgBaseInfo> orgBaseInfos = null;
+        try {
+            ExcelReader excelReader = EasyExcel.read(file.getInputStream()).build();
+            ReadSheet readSheet1 =
+                    EasyExcel.readSheet(0).head(OrgBaseInfo.class).registerReadListener(new BasicInfoListener(orgBaseInfoMapper)).build();
+            excelReader.read(readSheet1);
+            // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
+            excelReader.finish();
+            return MyUtils.objectToJson("成功");
+        } catch (Exception e) {
+            return MyUtils.objectToJson("文件格式不正确，请参考导出的文件格式");
+        }
     }
 }

@@ -27,6 +27,7 @@
 
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
+    <input type ="file" id="importExcel" name= "file" style=" display: none" />
 
     <div class="row">
         <div class="col-sm-12">
@@ -148,15 +149,61 @@
 <script th:src="@{/asserts/js/bootstrap.min.js}"></script>
 <script th:src="@{/asserts/js/plugins/footable/footable.all.min.js}"></script>
 <script th:src="@{/asserts/js/content.min.js}"></script>
+<script th:src="@{/asserts/js/layer/layer.min.js}" type="text/javascript"></script>
 <script th:src="@{/asserts/js/bootstrap-table/bootstrap-table.min.js?v=1}"></script>
 <script th:src="@{/asserts/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
 <script src="asserts/js/bootstrap-select.min.js" th:src="@{/asserts/js/bootstrap-select.min.js}"
         type="text/javascript"></script>
+<script th:src="@{/asserts/js/ajaxfileupload.js}"></script>
 
 <script th:replace="common/myJs::myCommonJs"></script>
 <script>
     $(function () {
         createTable();
+
+        var url = '[[@{/orgbase/importExcel.xlsx}]]';
+        $('body').on('change','#importExcel',function(){
+            var importingExcelIndex=layer.load(1);
+            $.ajaxFileUpload({
+                type: "POST",
+                url: url,
+                // data:{picParams:text},//要传到后台的参数，没有可以不写
+                secureuri : false,//是否启用安全提交，默认为false
+                fileElementId:'importExcel',//文件选择框的id属性
+                dataType: 'text',//服务器返回的格式
+                async : false,
+                complete: function(data){
+                    $('#importExcel').val('');
+                    layer.close(importingExcelIndex);
+                },
+                success: function (text) {
+                    var resultData = JSON.parse(text);
+                    var message = '';
+                    if (!$.isArray(resultData)) {
+                        if(typeof resultData == 'string'){
+                            layer.alert(resultData, {title: '导入失败', icon: 2});
+                        }else{
+                            if(resultData['add']+resultData['update']>0){
+                                message = '新增' + resultData['add'] + '项, ' + '修改' + resultData['update'] + '项';
+                                layer.alert(message, {title: '导入成功', icon: 1}, function () {
+                                    location.reload();
+                                });
+                            }else{
+                                layer.alert('列表为空', {title: '未导入', icon: 0});
+                            }
+                        }
+                    } else {
+                        for (var i = 0; i < resultData.length; i++) {
+                            message += resultData[i] + '<br/>';
+                        }
+                        layer.alert(message, {title: '导入失败', icon: 2});
+                    }
+                },
+                error: function (data, status, e){
+                    layer.alert('导入错误');
+                }
+            });
+        });
     });
 
     function resetTable() {
@@ -172,7 +219,6 @@
     }
 
     function onExpand(data) {
-        debugger;
         for (var i = 0; i < data.total; i++)
             $('#table').bootstrapTable('toggleDetailView', i);//展开详情行
     }
