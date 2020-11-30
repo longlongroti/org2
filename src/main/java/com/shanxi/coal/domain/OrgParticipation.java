@@ -1,23 +1,30 @@
 package com.shanxi.coal.domain;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
 
 import java.io.Serializable;
 
 public class OrgParticipation implements Serializable {
-    private String id;
-    @ExcelProperty(value = {"单位名称"},index = 0)
-    private String enterprisename;
-    @ExcelProperty(value = {"单位类型"},index = 1)
-    private String enterprisetype;
-    @ExcelProperty(value = {"境内/境外"},index = 2)
-    private String region;
-    @ExcelProperty(value = {"参股比例%"},index = 3)
-    private Float shareholding;
-
-    private String orgId;
-
     private static final long serialVersionUID = 1L;
+    @ExcelIgnore
+    private String id;
+    @ColumnWidth(20)
+    @ExcelProperty(value = {"单位名称"}, index = 1)
+    private String enterprisename;
+    @ColumnWidth(20)
+    @ExcelProperty(value = {"单位类型"}, index = 2)
+    private String enterprisetype;
+    @ColumnWidth(10)
+    @ExcelProperty(value = {"境内/境外"}, index = 3)
+    private String region;
+    @ColumnWidth(10)
+    @ExcelProperty(value = {"参股比例%"}, index = 4)
+    private Float shareholding;
+    @ColumnWidth(40)
+    @ExcelProperty(value = {"企业唯一标识"}, index = 0)
+    private String orgId;
 
     public String getId() {
         return id;

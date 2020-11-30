@@ -102,7 +102,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <select id="list" resultType="com.shanxi.coal.domain.OrgPersonnel">
+  <select id="list" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from org_personnel
