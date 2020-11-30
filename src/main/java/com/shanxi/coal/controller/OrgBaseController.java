@@ -48,10 +48,17 @@ public class OrgBaseController {
     @PostMapping("/list")
     @ResponseBody
     public String list(@RequestParam("pageNumber") Integer pageNumber,
-                       @RequestParam("pageSize") Integer pageSize) throws ParseException {
+                       @RequestParam("pageSize") Integer pageSize,
+                       HttpServletRequest request) throws ParseException {
         PageHelper.startPage(pageNumber, pageSize);
         OrgBaseInfo where = new OrgBaseInfo();
-//      where.setUserName(StringUtils.isNotEmpty(name)?name:null);
+
+        String unitname = request.getParameter("unitname");
+        where.setUnitname(StringUtils.isNotEmpty(unitname)?unitname:null);
+
+        String domain = request.getParameter("domain");
+        where.setDomain(StringUtils.isNotEmpty(domain)?domain:null);
+
         List<OrgBaseInfo> baseInfos =  orgBaseInfoMapper.list(where);
 
         PageInfo<OrgBaseInfo> pageInfo = new PageInfo(baseInfos);
