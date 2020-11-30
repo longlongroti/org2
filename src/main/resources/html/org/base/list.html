@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -15,10 +15,12 @@
     <link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/asserts/css/font-awesome.min.css}" rel="stylesheet">
     <link th:href="@{/asserts/css/plugins/footable/footable.core.css}" rel="stylesheet">
+    <link href="asserts/css/bootstrap-select.min.css" rel="stylesheet"
+          th:href="@{/asserts/css/bootstrap-select.min.css}">
 
     <link th:href="@{/asserts/css/animate.min.css}" rel="stylesheet">
     <link th:href="@{/asserts/css/style.min.css}" rel="stylesheet">
-    <link th:href="@{/asserts/css/bootstrap-table/bootstrap-table.min.css?v=1.1}" rel="stylesheet">
+    <link th:href="@{/asserts/css/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
 
 </head>
 
@@ -47,7 +49,11 @@
 
                                 <label class="col-sm-2 my-font-bold">境内外标志</label>
                                 <div class="col-sm-2">
-                                    <input id="domain" name="domain" type="text" class="form-control required">
+                                    <select class="selectpicker" id="domain" data-live-search="false" name="domain">
+                                        <option value="">请选择</option>
+                                        <option value="境内">境内</option>
+                                        <option value="境外">境外</option>
+                                    </select>
                                 </div>
 
                                 <label class="col-sm-2 my-font-bold">单位类型</label>
@@ -101,7 +107,7 @@
 
                             <div class="col-sm-2">
                                 <div class="form-group text-right">
-                                    <button class="btn btn-success" type="button" onclick="createTable()">查询</button>
+                                    <button  class="btn btn-success" type="button" onclick="createTable()">查询</button>
                                 </div>
                             </div>
                         </div>
@@ -135,12 +141,13 @@
 <script th:src="@{/asserts/js/bootstrap.min.js}"></script>
 <script th:src="@{/asserts/js/plugins/footable/footable.all.min.js}"></script>
 <script th:src="@{/asserts/js/content.min.js}"></script>
-<script th:src="@{/asserts/js/bootstrap-table/bootstrap-table.min.js?v=1.1}"></script>
+<script th:src="@{/asserts/js/bootstrap-table/bootstrap-table.min.js}"></script>
 <script th:src="@{/asserts/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<script src="asserts/js/bootstrap-select.min.js" th:src="@{/asserts/js/bootstrap-select.min.js}"
+        type="text/javascript"></script>
 
 <script th:replace="common/myJs::myCommonJs"></script>
 <script>
-
     $(function () {
         createTable();
     });
@@ -149,32 +156,14 @@
         createTable()
     }
 
-
-    function detailFormatter(index, row) {
-        var html = [];
-        $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>')
-        });
-        return html.join('')
-    }
-
-    function expandIt(data) {
-        debugger
-        for (var i = 0; i < data.total; i++) {
-            $('#table').bootstrapTable('toggleDetailView', i);//展开详情行
-        }
-    }
-
     function createTable() {
-        let url = '[[@{/orgbase/list}]]';
+        let url = '[[@{/orgbase/list}]]'
         $("#table").bootstrapTable('destroy');
         $("#table").bootstrapTable({
             url: url,        //请求后台的URL（*）
             method: 'post',                      //请求方式（*）
             contentType: "application/x-www-form-urlencoded",
             pagination: true,                   //是否显示分页（*）
-            detailView: true, //1，开启详情视树形图模式
-            detailFormatter: "detailFormatter",
             cache: false,
             pageSize: 10,//每页一条数据
             striped: true,  //表格显示条纹
@@ -184,15 +173,13 @@
                 var param = {
                     pageNumber: params.pageNumber,
                     pageSize: params.pageSize,
-                    //name: $('#name').val(),
+                    unitname: $('#unitname').val(),
+                    domain:$('#domain').val()
                 };
                 return param;
             },
             sidePagination: 'server',
             pageNumber: 1,
-            onLoadSuccess: function (data) {
-                expandIt(data);
-            },
             columns: [{
                 field: "uuid",
                 visible: false
@@ -212,10 +199,6 @@
                 field: "legal",
                 title: "企业类型"
             }, {
-                field: "",
-                title: "美的",
-                align: "center",
-            }, {
                 field: "cz",
                 title: "操作",
                 width: "20%",
@@ -228,7 +211,7 @@
                     var ryhtml = '<a href="javascript:;" class="btn btn-info pepo"><i class="fa fa-server"> </i> 人员信息</a>&nbsp;';
                     var qyhtml = '<a href="javascript:;" class="btn btn-info ent"><i class="fa fa-question"> </i> 参股企业信息</a>&nbsp;';
 
-                    var buttonhtml = editHtml + delHtml + checkHtml + gqhtml + ryhtml + qyhtml;
+                    var buttonhtml = editHtml+delHtml+checkHtml+gqhtml+ryhtml+qyhtml;
                     return buttonhtml;
                 },
                 events: {
@@ -256,23 +239,23 @@
 
                     'click .audit': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / stock / go ? id = '}]]';
-                        location.href = url + id;
+                        url = '[[@{'/stock/go?id='}]]';
+                        location.href = url+id;
                     },
 
                     'click .pepo': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / personnel / go ? id = '}]]';
-                        location.href = url + id;
+                        url = '[[@{'/personnel/go?id='}]]';
+                        location.href = url+id;
                     },
 
                     'click .ent': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / particip / go ? id = '}]]';
-                        location.href = url + id;
+                        url = '[[@{'/particip/go?id='}]]';
+                        location.href = url+id;
                     }
                 }
-            }]
+                }]
         });
     }
 
@@ -286,8 +269,7 @@
 </html>
 
 <div th:fragment="showConfirm" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -296,8 +278,7 @@
                 </div>
                 <div class="modal-body">
                     <button type="button" class="btn btn-default cancel" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary del" id="confirmDelete">确认删除</button>
-                </div>
+                    <button type="button" class="btn btn-primary del" id="confirmDelete">确认删除</button></div>
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->

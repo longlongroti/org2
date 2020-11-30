@@ -567,11 +567,14 @@
   
   <select id="list" resultType="com.shanxi.coal.domain.OrgBaseInfo">
     select * from org_base_info
-<!--    <where>-->
-<!--      <if test="userName != null">-->
-<!--        and user_name LIKE concat(concat('%',#{userName,jdbcType=VARCHAR}),'%')-->
-<!--      </if>-->
-<!--    </where>-->
+    <where>
+      <if test="unitname != null">
+        and unitname LIKE concat(concat('%',#{unitname,jdbcType=VARCHAR}),'%')
+      </if>
+      <if test="domain != null">
+        and domain = #{domain,jdbcType=VARCHAR}
+      </if>
+    </where>
 
   </select>
 </mapper>
