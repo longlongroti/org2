@@ -125,18 +125,18 @@ public class BsicInfoHandler implements SheetWriteHandler {
                 "政府及政府部门"
         };
         Map<Integer, String[]> mapDropDown = new HashMap<>();
-        mapDropDown.put(2, a);
-        mapDropDown.put(3, b);
-        mapDropDown.put(4, e);
-        mapDropDown.put(10, d);
-        mapDropDown.put(12, yesOrNo);
-        mapDropDown.put(13, g);
-        mapDropDown.put(14, c);
-        mapDropDown.put(22, i);
-        mapDropDown.put(23, h);
-        mapDropDown.put(24, yesOrNo);
+        mapDropDown.put(3, a);
+        mapDropDown.put(4, b);
+        mapDropDown.put(5, e);
+        mapDropDown.put(11, d);
+        mapDropDown.put(13, yesOrNo);
+        mapDropDown.put(14, g);
+        mapDropDown.put(15, c);
+        mapDropDown.put(23, i);
+        mapDropDown.put(24, h);
         mapDropDown.put(25, yesOrNo);
-        mapDropDown.put(28, f);
+        mapDropDown.put(26, yesOrNo);
+        mapDropDown.put(29, f);
         Sheet sheet = writeSheetHolder.getSheet();
         ///开始设置下拉框
         DataValidationHelper helper = sheet.getDataValidationHelper();//设置下拉框
