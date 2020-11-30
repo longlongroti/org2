@@ -1,21 +1,25 @@
 package com.shanxi.coal.domain;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class OrgStock implements Serializable {
+    @ExcelIgnore
     private String id;
-
+    @ExcelProperty(value = {"股东名称"},index = 0)
     private String shareholdername;
-
+    @ExcelProperty(value = {"股东国别"},index = 1)
     private String nationality;
-
+    @ExcelProperty(value = {"股东性质"},index = 2)
     private String nature;
-
+    @ExcelProperty(value = {"股东持股比例%"},index = 3)
     private String organization;
-
+    @ExcelProperty(value = {"联系人姓名"},index = 4)
     private BigDecimal proportion;
-
+    @ExcelIgnore
     private String orgId;
 
     private static final long serialVersionUID = 1L;

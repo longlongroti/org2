@@ -119,6 +119,10 @@
     select
     <include refid="Base_Column_List" />
     from org_stock
-    where org_id = #{orgId,jdbcType=VARCHAR}
+    <where>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

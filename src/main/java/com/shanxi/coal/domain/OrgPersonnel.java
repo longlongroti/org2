@@ -1,16 +1,18 @@
 package com.shanxi.coal.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 
 public class OrgPersonnel implements Serializable {
     private String id;
-
+    @ExcelProperty(value = {"联系人姓名"},index = 0)
     private String contactsname;
-
+    @ExcelProperty(value = {"企业联系人电话"},index = 1)
     private String contactsphone;
-
+    @ExcelProperty(value = {"邮箱"},index = 2)
     private String email;
-
+    @ExcelProperty(value = {"是否法人代表"},index = 3)
     private String islegal;
 
     private String orgId;

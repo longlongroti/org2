@@ -1,16 +1,18 @@
 package com.shanxi.coal.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 
 public class OrgParticipation implements Serializable {
     private String id;
-
+    @ExcelProperty(value = {"单位名称"},index = 0)
     private String enterprisename;
-
+    @ExcelProperty(value = {"单位类型"},index = 1)
     private String enterprisetype;
-
+    @ExcelProperty(value = {"境内/境外"},index = 2)
     private String region;
-
+    @ExcelProperty(value = {"参股比例%"},index = 3)
     private Float shareholding;
 
     private String orgId;

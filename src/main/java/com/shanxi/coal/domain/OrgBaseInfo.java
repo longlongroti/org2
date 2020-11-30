@@ -1,105 +1,110 @@
 package com.shanxi.coal.domain;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrgBaseInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @ExcelIgnore
     private String id;
-
+    @ExcelProperty(value = {"境内/境外"},index = 2)
     private String domain;
-
+    @ExcelProperty(value = {"单位类型"},index = 3)
     private String unittype;
-
+    @ExcelProperty(value = {"新增类型"},index = 4)
     private String newtype;
-
+    @ExcelProperty(value = {"统一社会信用代码"},index = 1)
     private String creditcode;
-
+    @ExcelProperty(value = {"单位名称"},index = 0)
     private String unitname;
-
+    @ExcelIgnore
     private String unitcode;
-
+    @ExcelProperty(value = {"单位简称"},index = 5)
     private String unitabbreviation;
-
+    @ExcelProperty(value = {"英文全称"},index = 6)
     private String englishname;
-
+    @ExcelProperty(value = {"英文简称"},index = 7)
     private String englishabbreviation;
-
+    @ExcelIgnore
     private String organizationalbig;
-
+    @ExcelIgnore
     private String organizationalmid;
-
+    @ExcelIgnore
     private String organizationalbigsmal;
-
+    @ExcelProperty(value = {"公司人数"},index = 8)
     private Integer numberpeople;
-
+    @ExcelProperty(value = {"成立日期"},index = 9)
     private String establishmentdate;
-
+    @ExcelProperty(value = {"币种"},index = 10)
     private String currency;
-
+    @ExcelProperty(value = {"注册资本(单位：万)"},index = 11)
     private String capital;
-
+    @ExcelProperty(value = {"是否上市"},index = 12)
     private String listed;
-
+    @ExcelProperty(value = {"空壳公司类别"},index = 13)
     private String shelltype;
-
+    @ExcelProperty(value = {"企业类型"},index = 14)
     private String enterprisetype;
-
+    @ExcelProperty(value = {"法定代表人"},index = 15)
     private String legal;
-
+    @ExcelProperty(value = {"官网"},index = 16)
     private String website;
-
+    @ExcelProperty(value = {"联系电话"},index = 17)
     private String phone;
-
+    @ExcelIgnore
     private String continent;
-
+    @ExcelIgnore
     private String country;
-
+    @ExcelIgnore
     private String province;
-
+    @ExcelIgnore
     private String city;
-
+    @ExcelIgnore
     private String county;
-
+    @ExcelProperty(value = {"注册地址"},index = 18)
     private String address;
-
+    @ExcelIgnore
     private String superiorholdingunit;
-
+    @ExcelIgnore
     private Integer legallevel;
     //法人本层级，为上级法人-1，上级法人层级为空，则1级
+    @ExcelIgnore
     private Integer llevel;
-
+    @ExcelProperty(value = {"上级控股比例%"},index = 19)
     private Integer holdingratio;
-
+    @ExcelIgnore
     private String superiormanagementunit;
-
+    @ExcelIgnore
     private Integer managelevel;
     //管理本层级，为上管理人-1，上级管理人层级为空，则1级
+    @ExcelIgnore
     private Integer mlevel;
-
+    @ExcelProperty(value = {"所属行业"},index = 20)
     private String industry;
-
+    @ExcelProperty(value = {"经营范围"},index = 21)
     private String businessscope;
-
+    @ExcelProperty(value = {"经营规模"},index = 22)
     private String businessscale;
-
+    @ExcelProperty(value = {"经营状态"},index = 23)
     private String businessstatus;
-
+    @ExcelProperty(value = {"是否平台公司"},index = 24)
     private String isplatform;
-
+    @ExcelProperty(value = {"是否纳入决算"},index = 25)
     private String finalaccounts;
-
+    @ExcelProperty(value = {"经营期限自"},index = 26)
     private String operationstartdate;
-
+    @ExcelProperty(value = {"经营期限至"},index = 27)
     private String operationenddate;
-
+    @ExcelIgnore
     private String creationdate;
-
+    @ExcelIgnore
     private String updatedate;
-
+    @ExcelProperty(value = {"注销类型"},index = 28)
     private String cancellationtype;
-
-    private static final long serialVersionUID = 1L;
 
     public String getId() {
         return id;
