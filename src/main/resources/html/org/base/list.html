@@ -162,17 +162,49 @@
 
     function detailFormatter(index, row) {
         var html = [];
+        html.push('<p><h3>企业基本信息</h3>')
         $.each(row, function (key, value) {
             if(key=='unitname'){
-                html.push('<p><b>单位名称:</b> ' + value + '</p>')
+                html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>单位名称:</b> ' + value + '</p>')
             }
             if(key=='domain'){
-                html.push('<p><b>境内外标志:</b> ' + value + '</p>')
+                html.push('<p><b>境内外标志:</b> ' + value)
             }
             if(key=='unittype'){
-                html.push('<p><b>单位类型:</b> ' + value + '</p>')
+                html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>单位类型:</b> ' + value)
             }
-            html.push('<p><b>'+key+':</b> ' + value + '</p>')
+            //html.push('<p><b>'+key+':</b> ' + value + '</p>')
+        });
+        html.push('<p><h3>股权结构信息</h3>');
+        $.each(row, function (key, value) {
+            if(key=='stockList'){
+                for(var i=0;i<value.length;i++){
+                    html.push('<p><b>股东名称:</b> ' + value[i].shareholdername)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>股东国别:</b> ' + value[i].nationality)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>股东性质:</b> ' + value[i].nature+ '</p>')
+                }
+            }
+        });
+        html.push('<p><h3>人员信息</h3>')
+        $.each(row, function (key, value) {
+            if(key=='personnelList'){
+                for(var i=0;i<value.length;i++){
+                    html.push('<p><b>联系人姓名:</b> ' + value[i].contactsname)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>企业联系人电话:</b> ' + value[i].contactsphone)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>邮箱:</b> ' + value[i].email+ '</p>')
+                }
+            }
+        });
+
+        html.push('<p><h3>参股企业信息</h3>')
+        $.each(row, function (key, value) {
+            if(key=='participationList'){
+                for(var i=0;i<value.length;i++){
+                    html.push('<p><b>单位名称:</b> ' + value[i].enterprisename)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>单位类型:</b> ' + value[i].enterprisetype)
+                    html.push('&nbsp;&nbsp;&nbsp;&nbsp;<b>境内/境外:</b> ' + value[i].region+ '</p>')
+                }
+            }
         });
         return html.join('');
     }
