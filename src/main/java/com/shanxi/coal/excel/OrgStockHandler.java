@@ -3,17 +3,34 @@ package com.shanxi.coal.excel;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
-import org.apache.poi.ss.usermodel.DataValidation;
-import org.apache.poi.ss.usermodel.DataValidationConstraint;
-import org.apache.poi.ss.usermodel.DataValidationHelper;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrgStockHandler implements SheetWriteHandler {
+    /**
+     * @param num 列数
+     * @return java.lang.String
+     * @Description 返回excel列标A-Z-AA-ZZ
+     * @Author chou
+     * @Date 2020/9/8
+     */
+    public static String getExcelLine(int num) {
+        String line = "";
+        int first = num / 26;
+        int second = num % 26;
+        if (first > 0) {
+            line = (char) ('A' + first - 1) + "";
+        }
+        line += (char) ('A' + second) + "";
+        return line;
+    }
+
     @Override
     public void beforeSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
     }
@@ -44,7 +61,7 @@ public class OrgStockHandler implements SheetWriteHandler {
                 "国有独资",
                 "政府及政府部门"
         };
-        String [] p = new String[]{
+        String[] p = new String[]{
                 "阿拉伯联合酋长国（阿联酋）",
                 "瓦利斯与富图纳（法）",
                 "阿尔及利亚",
@@ -260,23 +277,44 @@ public class OrgStockHandler implements SheetWriteHandler {
         mapDropDown.put(3, k);
         mapDropDown.put(5, p);
         Sheet sheet = writeSheetHolder.getSheet();
-        ///开始设置下拉框
-        DataValidationHelper helper = sheet.getDataValidationHelper();//设置下拉框
+        //设置下拉框
+        DataValidationHelper helper = sheet.getDataValidationHelper();
+        //定义sheet的名称
+        int count = 0;
+        //1.创建一个隐藏的sheet 名称为 hidden
+        Workbook workbook = writeWorkbookHolder.getWorkbook();
+        List<String> list = new ArrayList<>();
         for (Map.Entry<Integer, String[]> entry : mapDropDown.entrySet()) {
-            /***起始行、终止行、起始列、终止列**/
+            count += 1;
+            //下拉框的起始行,结束行,起始列,结束列
+            String hiddenName = "hidden" + count;
+            list.add(hiddenName);
+            Sheet hidden = workbook.createSheet(hiddenName);
             CellRangeAddressList addressList = new CellRangeAddressList(1, 1000, entry.getKey(), entry.getKey());
-            /***设置下拉框数据**/
-            DataValidationConstraint constraint = helper.createExplicitListConstraint(entry.getValue());
-            DataValidation dataValidation = helper.createValidation(constraint, addressList);
-            /***处理Excel兼容性问题**/
-            if (dataValidation instanceof XSSFDataValidation) {
-                dataValidation.setSuppressDropDownArrow(true);
-                dataValidation.setShowErrorBox(true);
-            } else {
-                dataValidation.setSuppressDropDownArrow(false);
+            //获取excel列名
+            String excelLine = getExcelLine(entry.getKey());
+            //2.循环赋值
+            String[] values = entry.getValue();
+            for (int i = 0, length = values.length; i < length; i++) {
+                // 3:表示你开始的行数  3表示 你开始的列数
+                hidden.createRow(i).createCell(entry.getKey()).setCellValue(values[i]);
             }
-            sheet.addValidationData(dataValidation);
+            Name category1Name = workbook.createName();
+            category1Name.setNameName(hiddenName);
+            //4.  =hidden!$H:$1:$H$50  sheet为hidden的 H1列开始H50行数据获取下拉数组
+            String refers = "=" + hiddenName + "!$" + excelLine +
+                    "$1:$" + excelLine + "$" + (values.length + 1);
+            //5 将刚才设置的sheet引用到你的下拉列表中
+            DataValidationConstraint constraint = helper.createFormulaListConstraint(refers);
+            DataValidation dataValidation = helper.createValidation(constraint, addressList);
+            writeSheetHolder.getSheet().addValidationData(dataValidation);
         }
-        //下面定时样式的
+        //设置列为隐藏
+        for(String s : list) {
+            int hiddenIndex = workbook.getSheetIndex(s);
+            if (!workbook.isSheetHidden(hiddenIndex)) {
+                workbook.setSheetHidden(hiddenIndex, true);
+            }
+        }
     }
 }

@@ -283,15 +283,15 @@ public class OrgBaseController {
         List<OrgBaseInfo> orgBaseInfos = orgBaseInfoMapper.list(where);
         WriteSheet writeSheet = EasyExcel.writerSheet(0, "基础信息").registerWriteHandler(new BsicInfoHandler()).head(OrgBaseInfo.class).build();
         excelWriter.write(orgBaseInfos, writeSheet);
-        List<OrgStock> orgStocks = orgStockMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(1, "股权结构信息").registerWriteHandler(new OrgStockHandler()).head(OrgStock.class).build();
-        excelWriter.write(orgStocks, writeSheet);
         List<OrgPersonnel> orgPersonnels = orgPersonnelMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(2, "人员信息").registerWriteHandler(new OrgPersonnelHandler()).head(OrgPersonnel.class).build();
+        writeSheet = EasyExcel.writerSheet(1, "人员信息").registerWriteHandler(new OrgPersonnelHandler()).head(OrgPersonnel.class).build();
         excelWriter.write(orgPersonnels, writeSheet);
         List<OrgParticipation> orgParticipations = orgParticipationMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(3, "参股企业信息").registerWriteHandler(new OrgParticpantHandler()).head(OrgParticipation.class).build();
+        writeSheet = EasyExcel.writerSheet(2, "参股企业信息").registerWriteHandler(new OrgParticpantHandler()).head(OrgParticipation.class).build();
         excelWriter.write(orgParticipations, writeSheet);
+        List<OrgStock> orgStocks = orgStockMapper.listAll();
+        writeSheet = EasyExcel.writerSheet(3, "股权结构信息").registerWriteHandler(new OrgStockHandler()).head(OrgStock.class).build();
+        excelWriter.write(orgStocks, writeSheet);
         excelWriter.finish();
     }
 
@@ -304,11 +304,11 @@ public class OrgBaseController {
             ReadSheet readSheet0 =
                     EasyExcel.readSheet(0).head(OrgBaseInfo.class).registerReadListener(new BasicInfoListener(orgBaseInfoMapper)).build();
             ReadSheet readSheet1 =
-                    EasyExcel.readSheet(1).head(OrgStock.class).registerReadListener(new OrgStockListener(orgStockMapper)).build();
+                    EasyExcel.readSheet(3).head(OrgStock.class).registerReadListener(new OrgStockListener(orgStockMapper)).build();
             ReadSheet readSheet2 =
-                    EasyExcel.readSheet(2).head(OrgPersonnel.class).registerReadListener(new OrgPersonnelListener(orgPersonnelMapper)).build();
+                    EasyExcel.readSheet(1).head(OrgPersonnel.class).registerReadListener(new OrgPersonnelListener(orgPersonnelMapper)).build();
             ReadSheet readSheet3 =
-                    EasyExcel.readSheet(3).head(OrgParticipation.class).registerReadListener(new OrgParticpantListener(orgParticipationMapper)).build();
+                    EasyExcel.readSheet(2).head(OrgParticipation.class).registerReadListener(new OrgParticpantListener(orgParticipationMapper)).build();
             excelReader.read(readSheet0, readSheet1, readSheet2, readSheet3);
             // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
             excelReader.finish();
