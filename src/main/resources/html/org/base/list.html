@@ -108,11 +108,10 @@
 <script th:src="@{/asserts/js/ajaxfileupload.js}"></script>
 
 <script th:replace="common/myJs::myCommonJs"></script>
-<script>
+<script th:inline="javascript">
     $(function () {
         createTable();
-
-        var url = '[[@{/orgbase/importExcel.xlsx}]]';
+        var url = [[@{'/orgbase/importExcel.xlsx'}]];
         $('body').on('change','#importExcel',function(){
             var importingExcelIndex=layer.load(1);
             $.ajaxFileUpload({
@@ -184,12 +183,12 @@
     }
 
     function exportExcel(){
-        let url = '[[@{/orgbase/exportExcel.xlsx}]]';
+        let url = [[@{'/orgbase/exportExcel.xlsx'}]];
         window.open(url);
     }
 
     function createTable() {
-        let url = '[[@{/orgbase/list}]]';
+        let url = [[@{'/orgbase/list'}]];
         $("#table").bootstrapTable('destroy');
         $("#table").bootstrapTable({
             url: url,        //请求后台的URL（*）
@@ -275,19 +274,19 @@
 
                     'click .audit': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{'/stock/go?id='}]]';
+                        url = [[@{'/stock/go?id='}]];
                         location.href = url + id;
                     },
 
                     'click .pepo': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{'/personnel/go?id='}]]';
+                        url = [[@{'/personnel/go?id='}]];
                         location.href = url + id;
                     },
 
                     'click .ent': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{'/particip/go?id='}]]';
+                        url = [[@{'/particip/go?id='}]];
                         location.href = url + id;
                     }
                 }
@@ -297,7 +296,7 @@
 
 
     function goAdd() {
-        location.href = '[[@{/orgbase/goadd}]]';
+        location.href = [[@{'/orgbase/goadd'}]];
     }
 </script>
 </body>
