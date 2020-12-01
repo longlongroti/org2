@@ -7,6 +7,7 @@ import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OrgBaseInfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -136,6 +137,16 @@ public class OrgBaseInfo implements Serializable {
     @ColumnWidth(20)
     @ExcelProperty(value = {"注销类型"}, index = 29)
     private String cancellationtype;
+
+    private List<OrgStock> stockList;
+
+    public List<OrgStock> getStockList() {
+        return stockList;
+    }
+
+    public void setStockList(List<OrgStock> stockList) {
+        this.stockList = stockList;
+    }
 
     public String getId() {
         return id;

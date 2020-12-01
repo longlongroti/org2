@@ -51,9 +51,8 @@ public class OrgParticiController {
                        @RequestParam("orgId") String orgId
                        ) throws ParseException {
         PageHelper.startPage(pageNumber, pageSize);
-        OrgParticipation where = new OrgParticipation();
-        where.setOrgId(orgId);
-        List<OrgParticipation> orgParticipations = orgParticipationMapper.list(where);
+
+        List<OrgParticipation> orgParticipations = orgParticipationMapper.list(orgId);
         PageInfo<OrgParticipation> pageInfo = new PageInfo(orgParticipations);
 
         return MyUtils.pageInfoToJson(pageInfo);

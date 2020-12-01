@@ -54,9 +54,8 @@ public class OrgStockController {
                        @RequestParam("orgId") String orgId
                        ) throws ParseException {
         PageHelper.startPage(pageNumber, pageSize);
-        OrgStock where = new OrgStock();
-        where.setOrgId(orgId);
-        List<OrgStock> orgStocks = orgStockMapper.list(where);
+
+        List<OrgStock> orgStocks = orgStockMapper.list(orgId);
         PageInfo<OrgBaseInfo> pageInfo = new PageInfo(orgStocks);
 
         return MyUtils.pageInfoToJson(pageInfo);

@@ -47,6 +47,8 @@
     <result column="creationdate" jdbcType="VARCHAR" property="creationdate" />
     <result column="updatedate" jdbcType="VARCHAR" property="updatedate" />
     <result column="cancellationtype" jdbcType="VARCHAR" property="cancellationtype" />
+   <collection property="stockList" column="id"
+                select="com.shanxi.coal.dao.OrgStockMapper.list"></collection>
   </resultMap>
   <sql id="Base_Column_List">
     id, domain, unittype, newtype, creditcode, unitname, unitcode, unitabbreviation, 
@@ -565,7 +567,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="list" resultType="com.shanxi.coal.domain.OrgBaseInfo">
+  <select id="list" resultMap="BaseResultMap" parameterType="com.shanxi.coal.domain.OrgBaseInfo">
     select * from org_base_info
     <where>
       <if test="unitname != null">

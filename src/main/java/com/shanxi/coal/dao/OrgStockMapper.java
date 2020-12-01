@@ -1,6 +1,7 @@
 package com.shanxi.coal.dao;
 
 import com.shanxi.coal.domain.OrgStock;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface OrgStockMapper {
 
     int updateByPrimaryKey(OrgStock record);
 
-    List<OrgStock> list(OrgStock record);
+    List<OrgStock> list(String orgId);
+
+    List<OrgStock> listAll();
+
 }

@@ -58,62 +58,13 @@
                                     </select>
                                 </div>
 
-                                <label class="col-sm-2 my-font-bold">单位类型</label>
-                                <div class="col-sm-2">
-                                    <input id="unittype" name="unittype" type="text" class="form-control required">
-                                </div>
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-10 mt-4">
-                                <label class="col-sm-2 my-font-bold">企业类型</label>
-                                <div class="col-sm-2">
-                                    <input id="enterprisetype" name="enterprisetype" type="text"
-                                           class="form-control required">
-                                </div>
-
-                                <label class="col-sm-2 my-font-bold">上报状态</label>
-                                <div class="col-sm-2">
-                                    <input id="state" name="state" type="text" class="form-control required">
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-10 mt-4">
-                                <label class="col-sm-2 my-font-bold">新增类型</label>
-                                <div class="col-sm-2">
-                                    <input id="newtype" name="newtype" type="text" class="form-control required">
-                                </div>
-
-                                <label class="col-sm-2 my-font-bold">注销类型</label>
-                                <div class="col-sm-2">
-                                    <input id="cancellationtype" name="cancellationtype" type="text"
-                                           class="form-control required">
-                                </div>
-
-
-                            </div>
-
                             <div class="col-sm-2">
                                 <div class="form-group text-right">
                                     <button class="btn btn-success" type="button" onclick="createTable()">查询</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -213,7 +164,16 @@
     function detailFormatter(index, row) {
         var html = [];
         $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+            if(key=='unitname'){
+                html.push('<p><b>单位名称:</b> ' + value + '</p>')
+            }
+            if(key=='domain'){
+                html.push('<p><b>境内外标志:</b> ' + value + '</p>')
+            }
+            if(key=='unittype'){
+                html.push('<p><b>单位类型:</b> ' + value + '</p>')
+            }
+            html.push('<p><b>'+key+':</b> ' + value + '</p>')
         });
         return html.join('');
     }
@@ -267,13 +227,13 @@
                 field: "creditcode",
                 title: "企业编码"
             }, {
-                field: "englishname",
+                field: "domain",
                 title: "境内外标志"
             }, {
-                field: "establishmentdate",
+                field: "unittype",
                 title: "单位类型"
             }, {
-                field: "legal",
+                field: "enterprisetype",
                 title: "企业类型"
             }, {
                 field: "cz",
@@ -282,13 +242,12 @@
                 formatter: function (value, row) {
                     var editHtml = '<a href="javascript:;" class="btn btn-success edit"><i class="fa fa-pencil"> </i> 编辑</a>&nbsp;';
                     var delHtml = '<a href="javascript:;" class="btn btn-danger del"><i class="fa fa-trash"> </i> 删除</a>&nbsp;';
-                    var checkHtml = '<a href="javascript:;" class="btn btn-primary check"><i class="fa fa-eye"></i> 查看详细</a>&nbsp;';
 
                     var gqhtml = '<a href="javascript:;" class="btn btn-info audit"><i class="fa fa-send"> </i> 股权结构信息</a>&nbsp;';
                     var ryhtml = '<a href="javascript:;" class="btn btn-info pepo"><i class="fa fa-server"> </i> 人员信息</a>&nbsp;';
                     var qyhtml = '<a href="javascript:;" class="btn btn-info ent"><i class="fa fa-question"> </i> 参股企业信息</a>&nbsp;';
 
-                    var buttonhtml = editHtml + delHtml + checkHtml + gqhtml + ryhtml + qyhtml;
+                    var buttonhtml = editHtml + delHtml + gqhtml + ryhtml + qyhtml;
                     return buttonhtml;
                 },
                 events: {
@@ -316,19 +275,19 @@
 
                     'click .audit': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / stock / go ? id = '}]]';
+                        url = '[[@{'/stock/go?id='}]]';
                         location.href = url + id;
                     },
 
                     'click .pepo': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / personnel / go ? id = '}]]';
+                        url = '[[@{'/personnel/go?id='}]]';
                         location.href = url + id;
                     },
 
                     'click .ent': function (e, value, row, index) {
                         var id = row.id;
-                        url = '[[@{' / particip / go ? id = '}]]';
+                        url = '[[@{'/particip/go?id='}]]';
                         location.href = url + id;
                     }
                 }

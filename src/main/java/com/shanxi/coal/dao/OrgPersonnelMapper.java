@@ -17,5 +17,7 @@ public interface OrgPersonnelMapper {
 
     int updateByPrimaryKey(OrgPersonnel record);
 
-    List<OrgPersonnel> list(OrgPersonnel record);
+    List<OrgPersonnel> list(String orgId);
+
+    List<OrgPersonnel> listAll();
 }

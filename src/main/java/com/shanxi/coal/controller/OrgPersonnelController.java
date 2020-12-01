@@ -51,9 +51,8 @@ public class OrgPersonnelController {
                        @RequestParam("orgId") String orgId
                        ) throws ParseException {
         PageHelper.startPage(pageNumber, pageSize);
-        OrgPersonnel where = new OrgPersonnel();
-        where.setOrgId(orgId);
-        List<OrgPersonnel> personnels = orgPersonnelMapper.list(where);
+
+        List<OrgPersonnel> personnels = orgPersonnelMapper.list(orgId);
         PageInfo<OrgBaseInfo> pageInfo = new PageInfo(personnels);
 
         return MyUtils.pageInfoToJson(pageInfo);

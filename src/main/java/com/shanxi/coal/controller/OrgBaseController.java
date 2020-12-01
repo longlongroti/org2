@@ -329,16 +329,16 @@ public class OrgBaseController {
         List<OrgBaseInfo> orgBaseInfos = orgBaseInfoMapper.list(where);
         WriteSheet writeSheet = EasyExcel.writerSheet(0, "基础信息").registerWriteHandler(new BsicInfoHandler()).head(OrgBaseInfo.class).build();
         excelWriter.write(orgBaseInfos, writeSheet);
-        OrgStock orgStock = new OrgStock();
-        List<OrgStock> orgStocks = orgStockMapper.list(orgStock);
+
+        List<OrgStock> orgStocks = orgStockMapper.listAll();
         writeSheet = EasyExcel.writerSheet(1, "股权结构信息").head(OrgStock.class).build();
         excelWriter.write(orgStocks, writeSheet);
-        OrgPersonnel orgPersonnel = new OrgPersonnel();
-        List<OrgPersonnel> orgPersonnels = orgPersonnelMapper.list(orgPersonnel);
+
+        List<OrgPersonnel> orgPersonnels = orgPersonnelMapper.listAll();
         writeSheet = EasyExcel.writerSheet(2, "人员信息").head(OrgPersonnel.class).build();
         excelWriter.write(orgPersonnels, writeSheet);
-        OrgParticipation orgParticipation = new OrgParticipation();
-        List<OrgParticipation> orgParticipations = orgParticipationMapper.list(orgParticipation);
+
+        List<OrgParticipation> orgParticipations = orgParticipationMapper.listAll();
         writeSheet = EasyExcel.writerSheet(3, "参股企业信息").head(OrgParticipation.class).build();
         excelWriter.write(orgParticipations, writeSheet);
         excelWriter.finish();

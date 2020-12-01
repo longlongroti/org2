@@ -17,5 +17,7 @@ public interface OrgParticipationMapper {
 
     int updateByPrimaryKey(OrgParticipation record);
 
-    List<OrgParticipation> list(OrgParticipation record);
+    List<OrgParticipation> list(String orgId);
+
+    List<OrgParticipation> listAll();
 }
