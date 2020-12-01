@@ -1,4 +1,4 @@
-package com.shanxi.coal.controller;
+package com.shanxi.coal.excel;
 
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
@@ -99,30 +99,6 @@ public class BsicInfoHandler implements SheetWriteHandler {
                 "小型",
                 "中型",
                 "大型"
-        };
-        String[] j = new String[]{//股东性质
-                "本企业内其他企业",
-                "本企业",
-                "其他国有企业",
-                "中方非国有企业",
-                "外资企业",
-                "外国政府",
-                "国家行政机关",
-                "境内自然人",
-                "国资委"
-        };
-        String[] k = new String[]{//股东组织形式
-                "本企业员工",
-                "其他自然人",
-                "社会团体",
-                "事业单位",
-                "外商",
-                "民营",
-                "集体",
-                "国有实际控制",
-                "国有控股",
-                "国有独资",
-                "政府及政府部门"
         };
         Map<Integer, String[]> mapDropDown = new HashMap<>();
         mapDropDown.put(3, a);

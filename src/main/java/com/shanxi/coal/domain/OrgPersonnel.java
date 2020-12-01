@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class OrgPersonnel implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ExcelIgnore
+    @ColumnWidth(40)
+    @ExcelProperty(value = {"id"}, index = 5)
     private String id;
     @ColumnWidth(20)
     @ExcelProperty(value = {"联系人姓名"}, index = 1)

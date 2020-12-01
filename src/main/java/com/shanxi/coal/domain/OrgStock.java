@@ -9,22 +9,23 @@ import java.math.BigDecimal;
 
 public class OrgStock implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ExcelIgnore
+    @ColumnWidth(40)
+    @ExcelProperty(value = {"id"}, index = 6)
     private String id;
     @ColumnWidth(20)
     @ExcelProperty(value = {"股东名称"}, index = 1)
     private String shareholdername;
     @ColumnWidth(20)
-    @ExcelProperty(value = {"股东国别"}, index = 2)
+    @ExcelProperty(value = {"股东国别"}, index = 5)
     private String nationality;
     @ColumnWidth(20)
-    @ExcelProperty(value = {"股东性质"}, index = 3)
+    @ExcelProperty(value = {"股东性质"}, index = 2)
     private String nature;
     @ColumnWidth(10)
-    @ExcelProperty(value = {"股东持股比例%"}, index = 4)
+    @ExcelProperty(value = {"组织形式"}, index = 3)
     private String organization;
     @ColumnWidth(20)
-    @ExcelProperty(value = {"联系人姓名"}, index = 5)
+    @ExcelProperty(value = {"股东持股比例%"}, index = 4)
     private BigDecimal proportion;
     @ColumnWidth(40)
     @ExcelProperty(value = {"企业唯一标识"}, index = 0)

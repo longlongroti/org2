@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class OrgParticipation implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ExcelIgnore
+    @ColumnWidth(40)
+    @ExcelProperty(value = {"id"}, index = 5)
     private String id;
     @ColumnWidth(20)
     @ExcelProperty(value = {"单位名称"}, index = 1)

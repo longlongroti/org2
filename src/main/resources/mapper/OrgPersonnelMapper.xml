@@ -108,7 +108,7 @@
     from org_personnel where org_id = #{orgId,jdbcType=VARCHAR}
   </select>
 
-  <select id="listAll" resultType="com.shanxi.coal.domain.OrgPersonnel">
+  <select id="listAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from org_personnel

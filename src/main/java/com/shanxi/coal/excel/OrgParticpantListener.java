@@ -1,24 +1,25 @@
-package com.shanxi.coal.controller;
+package com.shanxi.coal.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.metadata.CellExtra;
+import com.alibaba.excel.read.listener.ReadListener;
 import com.shanxi.coal.dao.OrgBaseInfoMapper;
+import com.shanxi.coal.dao.OrgParticipationMapper;
 import com.shanxi.coal.domain.OrgBaseInfo;
+import com.shanxi.coal.domain.OrgParticipation;
 import liquibase.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-public class BasicInfoListener extends AnalysisEventListener<OrgBaseInfo> {
+public class OrgParticpantListener extends AnalysisEventListener<OrgParticipation> {
     private static final int BATCH_COUNT = 5;
-    OrgBaseInfoMapper orgBaseInfoMapper = null;
-    List<OrgBaseInfo> list = new ArrayList<OrgBaseInfo>();
+    OrgParticipationMapper orgParticipationMapper = null;
+    List<OrgParticipation> list = new ArrayList<OrgParticipation>();
 
-    public BasicInfoListener(OrgBaseInfoMapper orgBaseInfoMapper) {
-        this.orgBaseInfoMapper = orgBaseInfoMapper;
+    public OrgParticpantListener(OrgParticipationMapper orgParticipationMapper) {
+        this.orgParticipationMapper = orgParticipationMapper;
     }
 
     /**
@@ -28,8 +29,8 @@ public class BasicInfoListener extends AnalysisEventListener<OrgBaseInfo> {
      * @param context
      */
     @Override
-    public void invoke(OrgBaseInfo orgBaseInfo, AnalysisContext analysisContext) {
-        list.add(orgBaseInfo);
+    public void invoke(OrgParticipation orgParticipation, AnalysisContext analysisContext) {
+        list.add(orgParticipation);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (list.size() >= BATCH_COUNT) {
             saveData();
@@ -53,12 +54,12 @@ public class BasicInfoListener extends AnalysisEventListener<OrgBaseInfo> {
      * 加上存储数据库
      */
     private void saveData() {
-        for (OrgBaseInfo orgBaseInfo : list) {
-            if (StringUtils.isEmpty(orgBaseInfo.getId())) {
-                orgBaseInfo.setId(UUID.randomUUID().toString());
-                orgBaseInfoMapper.insertSelective(orgBaseInfo);
+        for (OrgParticipation orgParticipation : list) {
+            if (StringUtils.isEmpty(orgParticipation.getId())) {
+                orgParticipation.setId(UUID.randomUUID().toString());
+                orgParticipationMapper.insertSelective(orgParticipation);
             } else {
-                orgBaseInfoMapper.updateByPrimaryKeySelective(orgBaseInfo);
+                orgParticipationMapper.updateByPrimaryKeySelective(orgParticipation);
             }
         }
     }

@@ -1,11 +1,5 @@
 package com.shanxi.coal.controller;
 
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.ExcelImportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
-import cn.afterturn.easypoi.excel.entity.ImportParams;
-import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
-import cn.afterturn.easypoi.handler.inter.IExcelExportServer;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
@@ -17,17 +11,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shanxi.coal.dao.*;
 import com.shanxi.coal.domain.*;
-import com.shanxi.coal.enums.AuditRoleEnum;
-import com.shanxi.coal.enums.MyDelEnum;
+import com.shanxi.coal.excel.*;
 import com.shanxi.coal.utils.MyUtils;
-import liquibase.util.MD5Util;
 import liquibase.util.StringUtils;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,7 +29,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/orgbase")
@@ -81,55 +69,15 @@ public class OrgBaseController {
 
     @GetMapping("/goadd")
     public String goAdd(Model model) {
-        List<OrgDict> jnwDict = orgDictMapper.findByName("境内外");
-        model.addAttribute("jnwDict", jnwDict);
-        List<OrgDict> dwlxDict = orgDictMapper.findByName("单位类型");
-        model.addAttribute("dwlxDict", dwlxDict);
-        List<OrgDict> xzlxDict = orgDictMapper.findByName("新增类型");
-        model.addAttribute("xzlxDict", xzlxDict);
-        List<OrgDict> zzxsDict = orgDictMapper.findByName("组织形式");
-        model.addAttribute("zzxsDict", zzxsDict);
-        List<OrgDict> bzDict = orgDictMapper.findByName("币种");
-        model.addAttribute("bzDict", bzDict);
-        List<OrgDict> sfssDict = orgDictMapper.findByName("是否上市");
-        model.addAttribute("sfssDict", sfssDict);
-        List<OrgDict> kkgslbDict = orgDictMapper.findByName("空壳公司类别");
-        model.addAttribute("kkgslbDict", kkgslbDict);
-        List<OrgDict> qylxDict = orgDictMapper.findByName("企业类型");
-        model.addAttribute("qylxDict", qylxDict);
-        List<OrgDict> ssdzDict = orgDictMapper.findByName("所属大洲");
-        model.addAttribute("ssdzDict", ssdzDict);
+        getDict1(model);
         List<OrgDict> ssgjDict = orgDictMapper.findByName("所属国家");
         model.addAttribute("ssgjDict", ssgjDict);
         List<OrgDict> jwcsDict = orgDictMapper.findByName("境外城市");
         model.addAttribute("jwcsDict", jwcsDict);
-        List<OrgDict> sshyDict = orgDictMapper.findByName("所属行业");
-        model.addAttribute("sshyDict", sshyDict);
-        List<OrgDict> jygmDict = orgDictMapper.findByName("经营规模");
-        model.addAttribute("jygmDict", jygmDict);
-        List<OrgDict> jyztDict = orgDictMapper.findByName("经营状态");
-        model.addAttribute("jyztDict", jyztDict);
-        List<OrgDict> sfptgsDict = orgDictMapper.findByName("是否平台公司");
-        model.addAttribute("sfptgsDict", sfptgsDict);
-        List<OrgDict> sfnrjsDict = orgDictMapper.findByName("是否纳入结算");
-        model.addAttribute("sfnrjsDict", sfnrjsDict);
-        List<OrgDict> zxlxDict = orgDictMapper.findByName("注销类型");
-        model.addAttribute("zxlxDict", zxlxDict);
-//        List<OrgDict> gdgbDict = orgDictMapper.findByName("股东国别");
-//        model.addAttribute("gdgbDict", gdgbDict);
-//        List<OrgDict> gdxzDict = orgDictMapper.findByName("股东性质");
-//        model.addAttribute("gdxzDict", gdxzDict);
-//
-//        List<OrgDict> gdzzxsDict = orgDictMapper.findByName("股东组织形式");
-//        model.addAttribute("gdzzxsDict", gdzzxsDict);
-//
-//        List<OrgDict> sffrdbDict = orgDictMapper.findByName("是否法定代表人");
-//        model.addAttribute("sffrdbDict", sffrdbDict);
         return "org/base/add";
     }
 
-    @GetMapping("/goedit")
-    public String goEdit(@PathParam("id") String id, Model model) {
+    private void getDict1(Model model) {
         List<OrgDict> jnwDict = orgDictMapper.findByName("境内外");
         model.addAttribute("jnwDict", jnwDict);
         List<OrgDict> dwlxDict = orgDictMapper.findByName("单位类型");
@@ -160,6 +108,12 @@ public class OrgBaseController {
         model.addAttribute("sfnrjsDict", sfnrjsDict);
         List<OrgDict> zxlxDict = orgDictMapper.findByName("注销类型");
         model.addAttribute("zxlxDict", zxlxDict);
+    }
+
+
+    @GetMapping("/goedit")
+    public String goEdit(@PathParam("id") String id, Model model) {
+        getDict1(model);
         OrgBaseInfo orgBaseInfo = orgBaseInfoMapper.selectByPrimaryKey(id);
         model.addAttribute("orgBaseInfo", orgBaseInfo);
         return "org/base/add";
@@ -329,17 +283,14 @@ public class OrgBaseController {
         List<OrgBaseInfo> orgBaseInfos = orgBaseInfoMapper.list(where);
         WriteSheet writeSheet = EasyExcel.writerSheet(0, "基础信息").registerWriteHandler(new BsicInfoHandler()).head(OrgBaseInfo.class).build();
         excelWriter.write(orgBaseInfos, writeSheet);
-
         List<OrgStock> orgStocks = orgStockMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(1, "股权结构信息").head(OrgStock.class).build();
+        writeSheet = EasyExcel.writerSheet(1, "股权结构信息").registerWriteHandler(new OrgStockHandler()).head(OrgStock.class).build();
         excelWriter.write(orgStocks, writeSheet);
-
         List<OrgPersonnel> orgPersonnels = orgPersonnelMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(2, "人员信息").head(OrgPersonnel.class).build();
+        writeSheet = EasyExcel.writerSheet(2, "人员信息").registerWriteHandler(new OrgPersonnelHandler()).head(OrgPersonnel.class).build();
         excelWriter.write(orgPersonnels, writeSheet);
-
         List<OrgParticipation> orgParticipations = orgParticipationMapper.listAll();
-        writeSheet = EasyExcel.writerSheet(3, "参股企业信息").head(OrgParticipation.class).build();
+        writeSheet = EasyExcel.writerSheet(3, "参股企业信息").registerWriteHandler(new OrgParticpantHandler()).head(OrgParticipation.class).build();
         excelWriter.write(orgParticipations, writeSheet);
         excelWriter.finish();
     }
@@ -350,9 +301,15 @@ public class OrgBaseController {
         List<OrgBaseInfo> orgBaseInfos = null;
         try {
             ExcelReader excelReader = EasyExcel.read(file.getInputStream()).build();
-            ReadSheet readSheet1 =
+            ReadSheet readSheet0 =
                     EasyExcel.readSheet(0).head(OrgBaseInfo.class).registerReadListener(new BasicInfoListener(orgBaseInfoMapper)).build();
-            excelReader.read(readSheet1);
+            ReadSheet readSheet1 =
+                    EasyExcel.readSheet(1).head(OrgStock.class).registerReadListener(new OrgStockListener(orgStockMapper)).build();
+            ReadSheet readSheet2 =
+                    EasyExcel.readSheet(2).head(OrgPersonnel.class).registerReadListener(new OrgPersonnelListener(orgPersonnelMapper)).build();
+            ReadSheet readSheet3 =
+                    EasyExcel.readSheet(3).head(OrgParticipation.class).registerReadListener(new OrgParticpantListener(orgParticipationMapper)).build();
+            excelReader.read(readSheet0, readSheet1, readSheet2, readSheet3);
             // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
             excelReader.finish();
             return MyUtils.objectToJson("成功");
