@@ -49,6 +49,10 @@
     <result column="cancellationtype" jdbcType="VARCHAR" property="cancellationtype" />
    <collection property="stockList" column="id"
                 select="com.shanxi.coal.dao.OrgStockMapper.list"></collection>
+    <collection property="personnelList" column="id"
+                select="com.shanxi.coal.dao.OrgPersonnelMapper.list"></collection>
+    <collection property="participationList" column="id"
+                select="com.shanxi.coal.dao.OrgParticipationMapper.list"></collection>
   </resultMap>
   <sql id="Base_Column_List">
     id, domain, unittype, newtype, creditcode, unitname, unitcode, unitabbreviation, 

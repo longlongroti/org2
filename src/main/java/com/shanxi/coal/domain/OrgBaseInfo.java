@@ -139,6 +139,8 @@ public class OrgBaseInfo implements Serializable {
     private String cancellationtype;
     @ExcelIgnore
     private List<OrgStock> stockList;
+    private List<OrgPersonnel> personnelList;
+    private List<OrgParticipation> participationList;
 
     public List<OrgStock> getStockList() {
         return stockList;
@@ -146,6 +148,22 @@ public class OrgBaseInfo implements Serializable {
 
     public void setStockList(List<OrgStock> stockList) {
         this.stockList = stockList;
+    }
+
+    public List<OrgPersonnel> getPersonnelList() {
+        return personnelList;
+    }
+
+    public void setPersonnelList(List<OrgPersonnel> personnelList) {
+        this.personnelList = personnelList;
+    }
+
+    public List<OrgParticipation> getParticipationList() {
+        return participationList;
+    }
+
+    public void setParticipationList(List<OrgParticipation> participationList) {
+        this.participationList = participationList;
     }
 
     public String getId() {
