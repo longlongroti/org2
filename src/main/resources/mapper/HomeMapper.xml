@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanxi.coal.dao.HomeMapper">
+
+    <select id="countByStatus" resultType="java.lang.Integer">
+    select count(*) from org_base_info where businessstatus = #{a,jdbcType=CHAR}
+  </select>
+    <select id="countAllCompany" resultType="java.lang.Integer">
+        select count(*) from org_base_info
+    </select>
+    <select id="countCompanyByType" resultType="java.lang.Integer">
+        select count(*) from org_base_info where unittype = #{type,jdbcType=CHAR}
+    </select>
+    <select id="countCompanyByBond" resultType="java.lang.Integer">
+        select count(*) from org_base_info where domain = #{type,jdbcType=CHAR}
+    </select>
+    <select id="countCompanyByListed" resultType="java.lang.Integer">
+        select count(*) from org_base_info where listed = #{type,jdbcType=CHAR}
+    </select>
+</mapper>
