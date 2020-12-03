@@ -137,6 +137,10 @@ public class OrgBaseInfo implements Serializable {
     @ColumnWidth(20)
     @ExcelProperty(value = {"注销类型"}, index = 29)
     private String cancellationtype;
+
+    private String superiorholdingunitid;
+    private String superiormanagementunitid;
+
     @ExcelIgnore
     private List<OrgStock> stockList;
     private List<OrgPersonnel> personnelList;
@@ -540,5 +544,21 @@ public class OrgBaseInfo implements Serializable {
 
     public void setMlevel(Integer mlevel) {
         this.mlevel = mlevel;
+    }
+
+    public String getSuperiorholdingunitid() {
+        return superiorholdingunitid;
+    }
+
+    public void setSuperiorholdingunitid(String superiorholdingunitid) {
+        this.superiorholdingunitid = superiorholdingunitid;
+    }
+
+    public String getSuperiormanagementunitid() {
+        return superiormanagementunitid;
+    }
+
+    public void setSuperiormanagementunitid(String superiormanagementunitid) {
+        this.superiormanagementunitid = superiormanagementunitid;
     }
 }

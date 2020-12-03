@@ -290,7 +290,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级控股单位</label>
                                     <div class="col-sm-4">
-                                        <input id="hdsuperiorholdingunit" type="hidden">
+                                        <input id="hdsuperiorholdingunit" name="superiorholdingunitid" type="hidden">
                                         <input class="form-control" id="superiorholdingunit" name="superiorholdingunit" placeholder="上级控股单位"
                                                th:placeholder="上级控股单位"
                                                th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiorholdingunit}" type="text" readonly="readonly">
@@ -324,7 +324,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label my-font-bold" ><span style="color:red;">*</span>上级管理单位</label>
                                     <div class="col-sm-4">
-                                        <input id="hdsuperiormanagementunit" type="hidden">
+                                        <input id="hdsuperiormanagementunit" name="superiormanagementunitid" type="hidden">
                                         <input class="form-control" id="superiormanagementunit" name="superiormanagementunit" placeholder="上级管理单位"
                                                th:placeholder="上级管理单位"
                                                th:value="${orgBaseInfo!=null}?${orgBaseInfo.superiormanagementunit}" type="text" readonly="readonly">
