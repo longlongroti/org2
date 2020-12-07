@@ -64,6 +64,8 @@ public class OrgBaseController {
         where.setDomain(StringUtils.isNotEmpty(domain) ? domain : null);
         String superiormanagementunitid = request.getParameter("superiormanagementunitid");
         where.setSuperiormanagementunitid(StringUtils.isNotEmpty(superiormanagementunitid) ? superiormanagementunitid : null);
+        String superiorholdingunitid = request.getParameter("superiorholdingunitid");
+        where.setSuperiorholdingunitid(StringUtils.isNotEmpty(superiorholdingunitid) ? superiorholdingunitid : null);
         List<OrgBaseInfo> baseInfos = orgBaseInfoMapper.list(where);
         PageInfo<OrgBaseInfo> pageInfo = new PageInfo(baseInfos);
         return MyUtils.pageInfoToJson(pageInfo);

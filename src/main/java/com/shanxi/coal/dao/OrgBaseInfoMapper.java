@@ -21,5 +21,9 @@ public interface OrgBaseInfoMapper {
 
     List<OrgBaseInfo> findRoot();
 
+    List<OrgBaseInfo> findRoot2();
+
     List<OrgBaseInfo> listOrgByParent(String pid);
+
+    List<OrgBaseInfo> listOrgByParent2(String pid);
 }

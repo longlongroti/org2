@@ -603,6 +603,9 @@
       <if test="superiormanagementunitid != null">
         and superiormanagementunitid = #{superiormanagementunitid,jdbcType=VARCHAR}
       </if>
+      <if test="superiorholdingunitid != null">
+        and superiorholdingunitid = #{superiorholdingunitid,jdbcType=VARCHAR}
+      </if>
     </where>
 
   </select>
@@ -611,7 +614,15 @@
     select * from org_base_info where superiormanagementunitid is null
   </select>
 
+  <select id="findRoot2" resultMap="BaseResultMap">
+    select * from org_base_info where superiorholdingunitid is null
+  </select>
+
   <select id="listOrgByParent" resultMap="BaseResultMap">
     select * from org_base_info where superiormanagementunitid = #{pid}
+  </select>
+
+  <select id="listOrgByParent2" resultMap="BaseResultMap">
+    select * from org_base_info where superiorholdingunitid = #{pid}
   </select>
 </mapper>

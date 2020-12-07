@@ -47,7 +47,7 @@
     });
 
     function getTree() {
-        let url = 'findTree'
+        let url = 'findTree2'
         $.ajax({
             url: url,
             type: "get",
@@ -71,7 +71,7 @@
             data: data,
             showTags: true,
             onNodeExpanded: function (event, data) {
-                let url = 'getByParent'
+                let url = 'getByParent2'
                 let id = data['nodeId'];		//获取节点的nodeid （nodeid是treeview自动生成的，每个节点不同）
                 $.ajax({					//异步加载当前节点的子节点数据
                     type: "post",
@@ -115,7 +115,7 @@
                     pageNumber: params.pageNumber,
                     pageSize: params.pageSize,
                     unitname: $('#unitname').val(),
-                    superiormanagementunitid:  $("#pid").val()
+                    superiorholdingunitid:  $("#pid").val()
                 };
                 return param;
             },
@@ -154,7 +154,7 @@
                     'click .edit': function (e, value, row, index) {
                         var id = row.id;
                         let url = [[@{'/orgbase/goedit?id='}]] + id
-                        location.href = url;
+                        location.href = url ;
                     },
                     'click .del': function (e, value, row, index) {
                         var id = row.id;

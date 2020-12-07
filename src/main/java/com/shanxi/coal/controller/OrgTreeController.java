@@ -26,18 +26,27 @@ public class OrgTreeController {
     @Resource
     OrgBaseInfoMapper orgBaseInfoMapper;
 
-    @Resource
-    OrgDictMapper orgDictMapper;
-
     @GetMapping("/managrgo")
     public String go() {
         return "org/managetree/list";
+    }
+
+    @GetMapping("/legalgo")
+    public String go2() {
+        return "org/legaltree/list";
     }
 
     @GetMapping("/findTree")
     @ResponseBody
     public String findTree(HttpServletRequest request) {
         String json = getTreeJson();
+        return json;
+    }
+
+    @GetMapping("/findTree2")
+    @ResponseBody
+    public String findTree2(HttpServletRequest request) {
+        String json = getTreeJson2();
         return json;
     }
 
@@ -55,10 +64,36 @@ public class OrgTreeController {
         return MyUtils.listToJson(baseInfoList);
     }
 
+    private String getTreeJson2() {
+        List<OrgBaseInfo> baseInfoList = orgBaseInfoMapper.findRoot2();
+        if (baseInfoList == null) {
+            return null;
+        }
+        List<OrgBaseInfo> dl = new ArrayList<>();
+        for(OrgBaseInfo o:baseInfoList){
+            o.setText(o.getUnitname());
+            o.setNodes(dl);
+        }
+
+        return MyUtils.listToJson(baseInfoList);
+    }
+
     @PostMapping("/getByParent")
     @ResponseBody
     public String list(@RequestParam("parentId") String parentId, HttpServletRequest request, HttpSession session, Model model) {
         List<OrgBaseInfo> baseInfoList = orgBaseInfoMapper.listOrgByParent(parentId);
+        for (OrgBaseInfo baseInfo : baseInfoList) {
+            List<OrgBaseInfo> dl = new ArrayList<>();
+            baseInfo.setText(baseInfo.getUnitname());
+            baseInfo.setNodes(dl);
+        }
+        return MyUtils.listToJson(baseInfoList);
+    }
+
+    @PostMapping("/getByParent2")
+    @ResponseBody
+    public String list2(@RequestParam("parentId") String parentId, HttpServletRequest request, HttpSession session, Model model) {
+        List<OrgBaseInfo> baseInfoList = orgBaseInfoMapper.listOrgByParent2(parentId);
         for (OrgBaseInfo baseInfo : baseInfoList) {
             List<OrgBaseInfo> dl = new ArrayList<>();
             baseInfo.setText(baseInfo.getUnitname());
