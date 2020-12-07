@@ -600,7 +600,18 @@
       <if test="domain != null">
         and domain = #{domain,jdbcType=VARCHAR}
       </if>
+      <if test="superiormanagementunitid != null">
+        and superiormanagementunitid = #{superiormanagementunitid,jdbcType=VARCHAR}
+      </if>
     </where>
 
+  </select>
+
+  <select id="findRoot" resultMap="BaseResultMap">
+    select * from org_base_info where superiormanagementunitid is null
+  </select>
+
+  <select id="listOrgByParent" resultMap="BaseResultMap">
+    select * from org_base_info where superiormanagementunitid = #{pid}
   </select>
 </mapper>

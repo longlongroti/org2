@@ -146,6 +146,10 @@ public class OrgBaseInfo implements Serializable {
     private List<OrgPersonnel> personnelList;
     private List<OrgParticipation> participationList;
 
+    @ExcelIgnore
+    private String text;
+    private List<OrgBaseInfo> nodes;
+
     public List<OrgStock> getStockList() {
         return stockList;
     }
@@ -560,5 +564,21 @@ public class OrgBaseInfo implements Serializable {
 
     public void setSuperiormanagementunitid(String superiormanagementunitid) {
         this.superiormanagementunitid = superiormanagementunitid;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public List<OrgBaseInfo> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<OrgBaseInfo> nodes) {
+        this.nodes = nodes;
     }
 }

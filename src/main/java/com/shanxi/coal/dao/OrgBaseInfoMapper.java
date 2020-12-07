@@ -18,4 +18,8 @@ public interface OrgBaseInfoMapper {
     int updateByPrimaryKey(OrgBaseInfo record);
 
     List<OrgBaseInfo> list(OrgBaseInfo where);
+
+    List<OrgBaseInfo> findRoot();
+
+    List<OrgBaseInfo> listOrgByParent(String pid);
 }
