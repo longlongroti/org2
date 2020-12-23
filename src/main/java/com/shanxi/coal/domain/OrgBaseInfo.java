@@ -137,17 +137,21 @@ public class OrgBaseInfo implements Serializable {
     @ColumnWidth(20)
     @ExcelProperty(value = {"注销类型"}, index = 29)
     private String cancellationtype;
-
+    @ExcelIgnore
     private String superiorholdingunitid;
+    @ExcelIgnore
     private String superiormanagementunitid;
 
     @ExcelIgnore
     private List<OrgStock> stockList;
+    @ExcelIgnore
     private List<OrgPersonnel> personnelList;
+    @ExcelIgnore
     private List<OrgParticipation> participationList;
 
     @ExcelIgnore
     private String text;
+    @ExcelIgnore
     private List<OrgBaseInfo> nodes;
 
     public List<OrgStock> getStockList() {
