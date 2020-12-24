@@ -302,7 +302,6 @@ public class OrgBaseController {
     @PostMapping(value = "/importExcel.xlsx")
     public @ResponseBody
     String importPicFile1(@RequestParam MultipartFile file, HttpServletRequest request) {
-        List<OrgBaseInfo> orgBaseInfos = null;
         try {
             ExcelReader excelReader = EasyExcel.read(file.getInputStream()).build();
             ReadSheet readSheet0 =
