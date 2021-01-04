@@ -35,5 +35,4 @@ public class SpringBootWebApplication {
             System.out.println(e);
         }
     }
-
 }

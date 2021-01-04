@@ -1,0 +1,24 @@
+<? xml version = "1.0" encoding = "UTF-8"?>
+<tiol >
+    <company_name>山西省某集团有限公司</company_name>
+    <company_id>9111XXXXXX563N</company_id>
+    <group_list>
+        <group>
+            <group_type>其他成员</group_type>
+            <member_list>
+                <member>
+                    <member_id>65832456558xx9567915438296578xx </member_id>
+                    <name>张某某</name>
+                    <position>总法律顾问</position>
+                    <start_date>2015-01-01</start_date>
+                    <end_date></end_date>
+                    <remark></remark>
+                    <oper_type>add</oper_type>
+                </member>
+            </member_list>
+        </group>
+    </group_list>
+    <remark></remark >
+    <source> 系统 </source>
+    <oper_type>add</oper_type >
+</tiol>

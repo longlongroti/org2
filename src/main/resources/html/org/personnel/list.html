@@ -146,7 +146,8 @@
                 formatter: function (value, row) {
                     var editHtml = '<a href="javascript:;" class="btn btn-success edit"><i class="fa fa-pencil"> </i> 编辑</a>&nbsp;';
                     var delHtml = '<a href="javascript:;" class="btn btn-danger del"><i class="fa fa-trash"> </i> 删除</a>&nbsp;';
-                    var buttonhtml = editHtml+delHtml;
+                    var sendHtml = '<a href="javascript:;" class="btn btn-warning send"><i class="fa fa-send"> </i> 报送</a>&nbsp;';
+                    var buttonhtml = editHtml+delHtml+sendHtml;
                     return buttonhtml;
                 },
                 events: {
@@ -169,6 +170,18 @@
                                 }
                             });
                             $('#confirmModal').modal("hide");
+                        });
+                    },
+                    'click .send': function (e, value, row, index) {
+                        let url = '[[@{/xml/send}]]';
+                        var id = row.id;
+                        $.ajax({
+                            url: url,
+                            data: 'id=' + id,
+                            type: "post",
+                            success: function (data) {
+                                createTable();
+                            }
                         });
                     },
 

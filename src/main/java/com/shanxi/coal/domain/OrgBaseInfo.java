@@ -4,12 +4,15 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class OrgBaseInfo implements Serializable {
+@XmlRootElement(name = "tiol")
+public class OrgBaseInfo extends MyXMLAdd implements Serializable {
     private static final long serialVersionUID = 1L;
     @ColumnWidth(40)
     @ExcelProperty(value = {"企业唯一标识"}, index = 0)
@@ -214,6 +217,7 @@ public class OrgBaseInfo implements Serializable {
         return creditcode;
     }
 
+    @XmlElement(name = "company_id")
     public void setCreditcode(String creditcode) {
         this.creditcode = creditcode == null ? null : creditcode.trim();
     }
@@ -221,7 +225,7 @@ public class OrgBaseInfo implements Serializable {
     public String getUnitname() {
         return unitname;
     }
-
+    @XmlElement(name = "company_name")
     public void setUnitname(String unitname) {
         this.unitname = unitname == null ? null : unitname.trim();
     }
